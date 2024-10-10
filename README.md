@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 Science Quiz App 🌟
 
-## Getting Started
+An interactive web-based **Science Quiz Application** built with **Next.js** and **TypeScript**, designed to help users test and improve their knowledge across various science topics like **Physics**, **Chemistry**, **Biology**, and more. The app features a user-friendly interface, real-time scoring, and a clean, responsive design.
 
-First, run the development server:
+## 🧪 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Ease of Use for Teachers and Students**: Teachers can add the quizzes and students of teacher's class can attempt them, such that teacher can analyze class performance in Teacher's Dashboard.
+- **Topic Selection**: Users can choose between categories like Physics, Chemistry, Biology, and Environmental Science.
+- **Real-Time Feedback**: Instantly receive feedback after answering each question, with correct answers highlighted.
+- **Scoring System**: Track your score for each quiz attempt.
+- **Leaderboard** (Optional): Users can submit their scores to a global leaderboard and see where they rank.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+- **Clean UI**: Minimalist, distraction-free interface for a seamless experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🖥️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: React-based framework for building the web app.
+- **TypeScript**: For static typing and better development experience.
+- **React Hooks**: For managing state and side-effects.
+- **CSS Modules**: Scoped and maintainable styles.
+- **[Optional] Node.js & Express**: Backend for quiz data handling and leaderboard (if implemented).
+- **[Optional] Firebase / MongoDB**: For storing user scores and leaderboard data.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+Ensure that you have the following installed:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Node.js** (v14 or above)
+- **npm** or **yarn**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1. **Clone the repository**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone https://github.com/yourusername/science-quiz-app.git
+   cd science-quiz-app

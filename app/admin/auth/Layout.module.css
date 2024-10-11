@@ -1,0 +1,29 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #0070f3;
+  padding: 1rem;
+  color: white;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  background-color: #0066b2;
+}
+
+.content {
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(44, 44, 87, 1) 21%,
+    rgba(37, 37, 182, 1) 49%,
+    rgba(0, 202, 255, 1) 100%
+  );
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}

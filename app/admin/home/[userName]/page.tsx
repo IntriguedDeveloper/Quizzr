@@ -1,19 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
-import styles from "./home.module.css";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "@/firebase/clientApp";
-import { getDocs, where, query, collection } from "firebase/firestore";
-import Card from "./_components/Card";
-import Navbar from "./_components/Navbar";
+import styles from "../home.module.css";
+import Card from "../_components/Card";
+import Navbar from "../_components/Navbar";
 import plusIcon from "@/public/plusIcon.png";
 import pieChart from "@/public/pieChart.png";
 import classRoomIcon from "@/public/classRoom.png";
 import { useRouter } from "next/navigation";
-
+import { useParams } from "next/navigation";
 export default function HomePage() {
-  const [userName, setUserName] = useState<string>("");
   const router = useRouter();
+  const params = useParams<{ userName: string }>();
+  const userName = params.userName;
+  const decodedUserName = decodeURIComponent(userName);
   const handleClick = (pathName: string) => {
     router.push(pathName);
   };
@@ -21,7 +19,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <div className={styles.container}>
-        <h2>Welcome {userName}</h2>
+        <h2>Welcome {decodedUserName}</h2>
         <div className={styles.cardContainer}>
           <Card
             cardHeading="Add a Quiz"

@@ -2,15 +2,17 @@
 import React, { useState } from "react";
 import Layout from "../Layout";
 import styles from "./login.module.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase/clientApp";
+import { signInWithEmailAndPassword, User } from "firebase/auth";
+import { auth, db } from "@/firebase/clientApp";
 import { useRouter } from "next/navigation";
 import { AdminAuthorizationLogin } from "../signup/handler";
-
+import { onAuthStateChanged } from "firebase/auth";
+import { getDocs, where, query, collection } from "firebase/firestore";
 const Login: React.FC = () => {
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>("");
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -23,10 +25,26 @@ const Login: React.FC = () => {
       formData.append("adminPassword", adminPassword);
 
       try {
-        await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
         const adminCheckResponse = await AdminAuthorizationLogin(formData);
         if(adminCheckResponse){
-          router.push("/admin/home");
+          signInWithEmailAndPassword(auth, adminEmail, adminPassword).then(
+            (userDoc) => {
+              if (adminCheckResponse) {
+                let userName = ""
+                const q = query(
+                  collection(db, "admin/user-doc/users"),
+                  where("email", "==", adminEmail)
+                );
+                 getDocs(q).then((querySnapShot) => {
+                  querySnapShot.forEach((doc) => {
+                    userName = doc.data().userName;
+                  });
+                  console.log(userName);
+                  router.push(`/admin/home/${encodeURIComponent(userName)}`);
+                });
+              }
+            }
+          );
         }
         
       } catch (error: any) {

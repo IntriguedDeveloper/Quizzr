@@ -1,0 +1,37 @@
+.cardContainer {
+  height: 250px;
+  width: 300px;
+  background: rgba(9, 25, 210, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cardContainer:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 16px 32px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.cardContainer a {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: large;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.cardContainer img {
+  height: 60px;
+  width: 60px;
+}
+
+@media (max-width: 768px) {
+  .cardContainer {
+    height: 180px;
+  }
+}

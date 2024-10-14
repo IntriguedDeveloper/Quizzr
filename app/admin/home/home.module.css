@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "Virgil";
+  src: url("/fonts/Virgil.woff2") format("woff2"),
+    url("/fonts/Virgil.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container h2 {
+  margin-left: 10px;
+  font-family: "Virgil", sans-serif; /* Add a fallback font */
+}
+
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row; /* Default direction for larger screens */
+  width: 80vw;
+}
+
+
+@media (max-width: 768px) {
+
+  .cardContainer {
+    height: 70vh;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-around;
+  }
+}

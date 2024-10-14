@@ -48,7 +48,7 @@ export default function SignUp() {
           userName: adminUserName,
         });
         
-        router.push("/admin/login");
+        router.push("/admin/auth/login");
       } catch (error: any) {
         // Handle and display the error message for both sign-in and authorization failures
         if (error.code) {

@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title : "Quizzr",
   description:"Quizzr Admin",
 };
-import "./global.css";
+import "./globals.css";
 
 export default function RootLayout({
   children,

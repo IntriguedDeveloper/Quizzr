@@ -1,23 +1,24 @@
 "use client";
 import React, { useState } from "react";
 import Layout from "../Layout";
-import styles from "./login.module.css";
-import { signInWithEmailAndPassword, User } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/clientApp";
 import { useRouter } from "next/navigation";
 import { AdminAuthorizationLogin } from "../signup/handler";
-import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, where, query, collection } from "firebase/firestore";
+
 const Login: React.FC = () => {
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string>("");
+
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
+    setIsLoading(true); // Start loading
 
     if (adminEmail && adminPassword) {
       const formData = new FormData();
@@ -25,79 +26,97 @@ const Login: React.FC = () => {
       formData.append("adminPassword", adminPassword);
 
       try {
+        // Admin authorization check
         const adminCheckResponse = await AdminAuthorizationLogin(formData);
-        if(adminCheckResponse){
-          signInWithEmailAndPassword(auth, adminEmail, adminPassword).then(
-            (userDoc) => {
-              if (adminCheckResponse) {
-                let userName = ""
-                const q = query(
-                  collection(db, "admin/user-doc/users"),
-                  where("email", "==", adminEmail)
-                );
-                 getDocs(q).then((querySnapShot) => {
-                  querySnapShot.forEach((doc) => {
-                    userName = doc.data().userName;
-                  });
-                  console.log(userName);
-                  router.push(`/admin/home/${encodeURIComponent(userName)}`);
-                });
-              }
-            }
+
+        if (adminCheckResponse) {
+          // Firebase authentication check
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            adminEmail,
+            adminPassword
           );
+          let userName = "";
+          // Query Firestore for admin user details
+          const q = query(
+            collection(db, "users"),
+            where("email", "==", adminEmail)
+          );
+          const querySnapShot = await getDocs(q);
+
+          querySnapShot.forEach((doc) => {
+            console.log(doc.data().userName)
+            userName = doc.data().userName;
+          });
+
+          
+          router.push(`/admin/home/${encodeURIComponent(userName)}`);
         }
-        
       } catch (error: any) {
+        console.log(error.code);
+
+        // Handle Firebase-specific errors using if statements
         if (error.code) {
-          switch (error.code) {
-            case "auth/invalid-email":
-              setErrorMessage("Invalid email format.");
-              break;
-            case "auth/user-disabled":
-              setErrorMessage("This account has been disabled.");
-              break;
-            case "auth/user-not-found":
-              setErrorMessage("User not found.");
-              break;
-            case "auth/wrong-password":
-              setErrorMessage("Incorrect password.");
-              break;
-            default:
-              setErrorMessage("Error signing in: " + error.message);
+          console.log("if fired");
+          console.log(error.code == "auth/invalid-credential");
+          if (error.code === "auth/invalid-email") {
+            console.log("Invalid email format case fired");
+            setErrorMessage("Invalid email format.");
+          } else if (error.code === "auth/user-disabled") {
+            setErrorMessage("This account has been disabled.");
+          } else if (error.code === "auth/user-not-found") {
+            setErrorMessage("User not found.");
+          } else if (error.code === "auth/wrong-password") {
+            setErrorMessage("Incorrect password.");
+          } else if (error.code == "auth/invalid-credential") {
+            setErrorMessage("Email or Password incorrect.");
+          } else {
+            setErrorMessage("Error signing in: " + error.message);
           }
         } else {
-          setErrorMessage(error.message || "An unknown error occurred.");
+          setErrorMessage(
+            error.message || "An unknown error occurred during authorization."
+          );
         }
+      } finally {
+        setIsLoading(false);
       }
     } else {
       setErrorMessage("Email and password are required.");
+      setIsLoading(false);
     }
   };
 
   return (
     <Layout>
-      <div className={styles.loginForm}>
-        <h2>Login as Teacher</h2>
-        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-        <form onSubmit={handleLogin}>
+      <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md mx-auto flex flex-col items-center justify-center">
+        <h2 className="text-xl font-bold mb-4">Login as Teacher</h2>
+        {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
+        <form onSubmit={handleLogin} className="w-full">
           <input
             type="email"
             placeholder="Email"
             value={adminEmail}
             onChange={(e) => setAdminEmail(e.target.value)}
-            className={styles.input}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-md text-base"
+            disabled={isLoading}
           />
           <input
             type="password"
             placeholder="Password"
             value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
-            className={styles.input}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-md text-base"
+            disabled={isLoading}
           />
-          <button className={styles.button} type="submit">
-            Login
+          <button
+            className="w-full p-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition duration-300"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"}
           </button>
-          <a href="#" className={styles.forgotPassword}>
+          <a href="#" className="mt-4 text-blue-600 hover:underline">
             Forgot password?
           </a>
         </form>

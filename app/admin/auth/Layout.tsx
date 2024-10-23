@@ -1,6 +1,9 @@
-// components/Layout.tsx
 import React from "react";
-import styles from "./Layout.module.css";
+
+
+import Navbar from "@/_components/Navbar";
+
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,11 +11,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className={styles.pageContainer}>
-      <header className={styles.header}>
-        <h1>Quizzr</h1>
-      </header>
-      <main className={styles.content}>{children}</main>
+    <div className="flex flex-col min-h-screen">
+     <Navbar></Navbar>
+      <main className="flex-1 flex justify-center items-center p-8 bg-gradient-to-r from-[#020024] via-[#2c2c57] to-[#00caff]">
+        {children}
+      </main>
     </div>
   );
 };

@@ -11,30 +11,30 @@ const Home: React.FC = () => {
   const [isAdmin, setAdmin] = useState<boolean>();
   const router = useRouter();
   useEffect(() => {
-   
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        let userName = "";
+        let isAdmin = "";
         const q = query(
           collection(db, "users"),
           where("email", "==", user.email)
         );
         const querySnapShot = await getDocs(q);
-        console.log(querySnapShot)
+        console.log(querySnapShot);
         querySnapShot.forEach(async (doc) => {
-          let userData = await doc.data();
-          setUserName(doc.data().userName);
-          setAdmin(doc.data().isAdmin);
+          userName = doc.data().userName;
+          isAdmin = doc.data().isAdmin;
         });
-        if (userName ) {
+        console.log(userName);
+        if (userName) {
           if (isAdmin) {
             router.push(`/admin/home/${encodeURIComponent(userName)}`);
           } else {
             router.push("/admin/auth/signup");
           }
         }
-      }
-      else{
-        router.push('/login')
+      } else {
+        router.push("/login");
       }
     });
     return () => unsubscribe();

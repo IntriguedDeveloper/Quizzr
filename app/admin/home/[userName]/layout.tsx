@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div>
         <Navbar toggleSidebar={toggleSidebar} />
         <Sidebar toggleSidebar={toggleSidebar} isOpen={isSidebarOpen}></Sidebar>
-        <main >{children}</main>
+        <main>{children}</main>
       </div>
     </>
   );

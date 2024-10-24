@@ -13,7 +13,7 @@ export default function Card({
 }) {
   return (
     <div
-      className="h-[250px] w-[300px] mb-5 mt-5 bg-secondary flex items-center justify-center rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer border-2 border-blue-600 hover:border-blue-800"
+      className="h-[250px] w-[300px] mb-5 mt-5 bg-secondary flex items-center justify-center rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 active:shadow-2xl transition-transform duration-300 ease-in-out cursor-pointer border-2 border-blue-600 hover:border-blue-800"
       onClick={onClick}
     >
       <Image src={icon} alt="cardIcon" className="h-16 w-16" />

@@ -12,12 +12,14 @@ const config = {
         pop: ["var(--font-pop)"],
       },
       colors: {
-        "primary" : "#2563eb",
-        "secondary" : "rgb(219 234 254)",
-        "color-primary" : "#1e40af"
-      }
+        primary: "#2563eb",
+        secondary: "rgb(219 234 254)",
+        "color-primary": "#1e40af",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar")({ preferredStrategy: "pseudoelements", nocompatible: true}),
+  ],
 };
 export default config;

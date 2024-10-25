@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title : "Quizzr",
-  description:"Quizzr Admin",
+  title: "Quizzr",
+  description: "Quizzr Admin",
 };
 import "./globals.css";
+import { UserContextProvider } from "./UserContext";
 
 export default function RootLayout({
   children,
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>
   );

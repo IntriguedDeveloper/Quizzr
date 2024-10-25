@@ -1,44 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { auth, db } from "@/firebase/clientApp";
-import { onAuthStateChanged } from "firebase/auth";
+
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import { getDocs, where, query, collection } from "firebase/firestore";
+import { useUserContext } from "./UserContext";
 
 const Home: React.FC = () => {
-  const [userName, setUserName] = useState<string>();
-  const [isAdmin, setAdmin] = useState<boolean>();
   const router = useRouter();
+  const userData = useUserContext();
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let userName = "";
-        let isAdmin = "";
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", user.email)
-        );
-        const querySnapShot = await getDocs(q);
-        console.log(querySnapShot);
-        querySnapShot.forEach(async (doc) => {
-          userName = doc.data().userName;
-          isAdmin = doc.data().isAdmin;
-        });
-        console.log(userName);
+    async function getUserData() {
+      const { userName, isAdmin, isLoading} = await userData;
+      console.log("User Data:", userData); // Log user data to check its state
+      if(!isLoading){
         if (userName) {
+          console.log("This is user data: " + userData.userEmail);
           if (isAdmin) {
             router.push(`/admin/home/${encodeURIComponent(userName)}`);
           } else {
             router.push("/admin/auth/signup");
           }
+        } else {
+          router.push("/auth/login");
         }
-      } else {
-        router.push("/login");
       }
-    });
-    return () => unsubscribe();
-  }, []);
+      
+    }
+    getUserData();
+  }, [router, userData]); 
 
   return (
     <div className={styles.container}>

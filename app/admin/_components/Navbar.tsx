@@ -1,6 +1,9 @@
+import { UserContextType } from "@/context/UserContext";
 import { Poppins } from "next/font/google";
 import { HiMenu } from "react-icons/hi";
-
+import ProfileIcon from "@/public/account.png";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-pop",
@@ -9,9 +12,14 @@ const poppins = Poppins({
 
 export default function Navbar({
   toggleSidebar,
+  teacherDetails,
+  profileVisibility = true,
 }: {
-  toggleSidebar?: () => void; 
+  toggleSidebar?: () => void;
+  teacherDetails?: UserContextType;
+  profileVisibility?: boolean;
 }) {
+  const router = useRouter();
   return (
     <>
       <nav
@@ -28,6 +36,16 @@ export default function Navbar({
           </button>
         )}
         <h1 className={`text-4xl ${poppins.variable} font-pop`}>Quizzr</h1>
+        {profileVisibility && (
+          <div className="w-full flex justify-end items-center">
+            <Image
+              src={ProfileIcon}
+              alt="Profile Icon"
+              className="h-10 w-10 hover:cursor-pointer"
+              onClick={() => router.push("/admin/home/profile")}
+            ></Image>
+          </div>
+        )}
       </nav>
     </>
   );

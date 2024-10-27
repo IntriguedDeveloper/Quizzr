@@ -23,7 +23,7 @@ export default function Sidebar({
         isOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out`}
     >
-      <div className="p-4 flex justify-between items-center">
+      <div className="pt-4 pr-4 pl-4 pb-0 flex justify-between items-center">
         <h2 className="text-2xl">Menu</h2>
         <button onClick={toggleSidebar} className="text-white text-2xl">
           <AiOutlineClose />
@@ -32,25 +32,25 @@ export default function Sidebar({
       <ul className="mt-6">
         <li
           className="p-4 hover:bg-gray-700 cursor-pointer"
-          onClick={() => handleNavigation(`/admin/home/${userName}`)}
+          onClick={() => handleNavigation(`/admin/home/`)}
         >
-          <a>Dashboard</a>
+          <a>Home</a>
         </li>
         <li
           className="p-4 hover:bg-gray-700 cursor-pointer"
-          onClick={() => handleNavigation(`/admin/home/${userName}/addQuiz`)}
+          onClick={() => handleNavigation(`/admin/home/addQuiz`)}
         >
           <a>Add Quiz</a>
         </li>
         <li
           className="p-4 hover:bg-gray-700 cursor-pointer"
-          onClick={() => handleNavigation(`/admin/home/${userName}/analyzeResults`)}
+          onClick={() => handleNavigation(`/admin/home/analyzeResults`)}
         >
           <a>Analyze Results</a>
         </li>
         <li
           className="p-4 hover:bg-gray-700 cursor-pointer"
-          onClick={() => handleNavigation(`/admin/home/${userName}/manageClassRoom`)}
+          onClick={() => handleNavigation(`/admin/home/manageClassRoom`)}
         >
           <a>Manage Classrooms</a>
         </li>

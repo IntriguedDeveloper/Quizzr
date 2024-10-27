@@ -1,8 +1,9 @@
 "use client";
-import { useUserContext } from "@/app/UserContext";
-import Navbar from "../../_components/Navbar";
-import Sidebar from "../../_components/SideBar";
+import { useUserContext } from "@/context/UserContext";
+import Navbar from "../_components/Navbar";
+import Sidebar from "../_components/SideBar";
 import { useState } from "react";
+import Footer from "../_components/Footer";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -13,14 +14,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div>
-        <Navbar toggleSidebar={toggleSidebar} />
+        <Navbar toggleSidebar={toggleSidebar} teacherDetails = {teacherData}/>
         <Sidebar
           toggleSidebar={toggleSidebar}
           isOpen={isSidebarOpen}
           userName={teacherData.userName}
         ></Sidebar>
-        <main>{children}</main>
+        <div className="h-[calc(100vh-80px)] w-full flex flex-row items-start justify-center p-0">{children}</div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

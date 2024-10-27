@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
-type UserContextType = {
+export type UserContextType = {
   userID: string | null;
   userEmail: string | null;
   userName: string | null;

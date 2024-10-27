@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ClassCard({
@@ -12,13 +13,12 @@ export default function ClassCard({
   isLoading: boolean;
 }) {
   const [isVisible, setIsVisible] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
-    // Trigger the visibility state after loading
     if (!isLoading) {
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 100); // Delay to allow loading spinner to show briefly
+      }, 20);
       return () => clearTimeout(timer);
     }
   }, [isLoading]);
@@ -31,7 +31,14 @@ export default function ClassCard({
           : isVisible
           ? "opacity-100 scale-105"
           : "opacity-0 scale-95"
-      } ${isLoading ? "animate-pulse" : "hover:scale-105 hover:border-2 hover:border-blue-400"}`}
+      } ${
+        isLoading
+          ? "animate-pulse"
+          : "hover:scale-105 hover:border-2 hover:border-blue-400"
+      }`}
+      onClick={() => {
+        router.push("./home/manageClassroom");
+      }}
     >
       {isLoading ? (
         <div className="border-gray-300 h-12 w-12 animate-spin rounded-full border-8 border-t-blue-600"></div>

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Quizzr Admin",
 };
 import "./globals.css";
-import { UserContextProvider } from "./UserContext";
+import { UserContextProvider } from "../context/UserContext";
 
 export default function RootLayout({
   children,

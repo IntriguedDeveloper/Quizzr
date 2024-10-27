@@ -15,7 +15,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import ClassCard from "@/app/admin/_components/ClassCard";
-import { useUserContext } from "@/app/UserContext";
+import { useUserContext } from "@/context/UserContext";
 
 type ClassDataObject = {
   classRoomCode: string;
@@ -176,7 +176,7 @@ export default function ClassroomViewer() {
               <input
                 type="text"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none"
-                placeholder="Enter classroom code (11A12026)"
+                placeholder="Enter classroom code (Eg : 11_A1_2026)"
                 name="classRoomCode"
                 onChange={handleInputChange}
               />

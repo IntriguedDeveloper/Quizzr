@@ -1,23 +1,20 @@
 "use client";
 import { useEffect } from "react";
-import Card from "../../_components/Card";
-import Navbar from "../../_components/Navbar";
-import Sidebar from "../../_components/SideBar";
 import plusIcon from "@/public/plusIcon.png";
 import pieChart from "@/public/pieChart.png";
 import classRoomIcon from "@/public/classRoom.png";
 import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
-import { useUserContext } from "@/app/UserContext";
+import { useUserContext } from "@/context/UserContext";
+import Card from "@/app/admin/_components/Card";
 
 export default function HomePage() {
   const router = useRouter();
   const userData = useUserContext();
   const userName = userData.userName;
   useEffect(() => {
-    router.prefetch(`./${userName}/manageClassRoom`);
-    router.prefetch(`./${userName}/addQuiz`);
-    router.prefetch(`./${userName}/analyzeResults`);
+    router.prefetch(`/admin/${userName}/manageClassRoom`);
+    router.prefetch(`/admin/${userName}/addQuiz`);
+    router.prefetch(`/admin/${userName}/analyzeResults`);
   }, [router]);
 
   const handleClick = (pathName: string) => {
@@ -29,9 +26,7 @@ export default function HomePage() {
       <div
         className={`flex flex-col items-center justify-center transition-all duration-300 p-5`}
       >
-        <h2 className="ml-2 font-sans text-3xl lg:ml-5">
-          Welcome {userName}
-        </h2>
+        <h2 className="ml-2 font-sans text-3xl lg:ml-5">Welcome {userName}</h2>
         <div className="flex w-4/5 flex-row items-center justify-evenly flex-wrap lg:space-x-4">
           <Card
             cardHeading="Add a Quiz"
@@ -48,6 +43,7 @@ export default function HomePage() {
             icon={classRoomIcon}
             onClick={() => handleClick(`./${userName}/manageClassRoom`)}
           />
+          
         </div>
       </div>
     </>

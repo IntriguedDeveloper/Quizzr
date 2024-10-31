@@ -14,15 +14,10 @@ export default function VerifyEmail() {
     if (auth.currentUser) {
       try {
         await sendEmailVerification(auth.currentUser);
-        
-        // Show the success toast
         toast.success("Verification email sent! Please check your inbox.");
-
-        // Wait for the toast to be displayed, then redirect
         setTimeout(() => {
-          router.push('./login');
-        }, 5000); // Adjust the time as needed (5000ms = 5 seconds)
-        
+          router.push("./login");
+        }, 10000);
       } catch (error: any) {
         toast.error("Error sending verification email: " + error.message);
       }

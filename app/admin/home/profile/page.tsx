@@ -1,13 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useUserContext } from "@/context/UserContext";
 import {
   getAuth,
   sendPasswordResetEmail,
   updateEmail,
-  sendEmailVerification,
-  signInWithEmailAndPassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
@@ -69,8 +66,6 @@ export default function AdminProfilePage() {
   };
 
   const handleSave = async (field: keyof typeof isEditing) => {
-    const auth = getAuth();
-
     if (field === "email") {
       setShowLoginForm(true);
       return;
@@ -94,7 +89,7 @@ export default function AdminProfilePage() {
       toggleEdit("email");
       setShowLoginForm(false);
       setLoginData({ email: "", password: "" });
-    } catch (error:any) {
+    } catch (error: any) {
       setMessage("Error during login or updating email: " + error.message);
     }
   };
@@ -113,59 +108,51 @@ export default function AdminProfilePage() {
               : field.charAt(0).toUpperCase() + field.slice(1)}
           </label>
 
-          <motion.div className="flex items-center space-x-2 mt-1 rounded border border-gray-300 p-2">
+          <div className="flex items-center space-x-2 mt-1 rounded border border-gray-300 p-2">
             <div className="flex-grow">
-              <AnimatePresence mode="wait">
+              <div
+                className={`transition-opacity duration-300 ${
+                  isEditing[field as keyof typeof isEditing] ? "opacity-100" : "opacity-0"
+                }`}
+                style={{ height: "40px", transition: "opacity 0.3s ease-in-out" }}
+              >
                 {isEditing[field as keyof typeof isEditing] ? (
-                  <motion.input
-                    key={`${field}-input`}
+                  <input
                     type={field === "password" ? "password" : "text"}
                     name={field}
                     value={profileData[field as keyof typeof profileData]}
                     onChange={handleInputChange}
                     className="border-b-2 border-blue-500 p-2 w-full outline-none text-gray-700 rounded"
                     style={{ height: "40px" }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
                   />
                 ) : (
-                  <motion.span
-                    key={`${field}-text`}
+                  <span
                     className="text-gray-700 flex items-center"
                     style={{ height: "40px" }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
                   >
                     {profileData[field as keyof typeof profileData]}
-                  </motion.span>
+                  </span>
                 )}
-              </AnimatePresence>
+              </div>
             </div>
 
-            <motion.button
+            <button
               onClick={() =>
                 isEditing[field as keyof typeof isEditing]
                   ? handleSave(field as keyof typeof isEditing)
                   : toggleEdit(field as keyof typeof isEditing)
               }
               className="text-blue-500 hover:text-blue-700 font-medium"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
             >
               {isEditing[field as keyof typeof isEditing] ? "Save" : "Edit"}
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
         </div>
       ))}
 
       <div className="mt-4">
         <button
-          onClick={() => setShowForgotPassword(true)}
+          onClick={() => setShowForgotPassword(!showForgotPassword)}
           className="text-blue-500 hover:text-blue-700 font-medium"
         >
           Forgot Password?
@@ -174,12 +161,11 @@ export default function AdminProfilePage() {
 
       {showForgotPassword && (
         <div className="mt-4">
-          <motion.div
-            className="p-4 border rounded bg-gray-100"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+          <div
+            className={`p-4 border rounded bg-gray-100 transition-opacity duration-300 ${
+              showForgotPassword ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transition: "opacity 0.3s ease-in-out" }}
           >
             <p>Enter your email to receive a password reset link:</p>
             <input
@@ -195,18 +181,17 @@ export default function AdminProfilePage() {
             >
               Send Reset Email
             </button>
-          </motion.div>
+          </div>
         </div>
       )}
 
       {showLoginForm && (
         <div className="mt-4">
-          <motion.div
-            className="p-4 border rounded bg-gray-100"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+          <div
+            className={`p-4 border rounded bg-gray-100 transition-opacity duration-300 ${
+              showLoginForm ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transition: "opacity 0.3s ease-in-out" }}
           >
             <p>Please log in again to update your email:</p>
             <form onSubmit={handleLogin}>
@@ -233,7 +218,7 @@ export default function AdminProfilePage() {
                 Log In
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       )}
 

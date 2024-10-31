@@ -18,6 +18,9 @@ const config = {
 
         "navy-blue": "#001f3f",
       },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
+      }
     },
   },
   plugins: [

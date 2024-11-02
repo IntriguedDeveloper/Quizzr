@@ -1,0 +1,249 @@
+[debug] [2024-11-02T20:27:57.900Z] ----------------------------------------------------------------------
+[debug] [2024-11-02T20:27:57.905Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ruby0\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-11-02T20:27:57.905Z] CLI Version:   13.23.1
+[debug] [2024-11-02T20:27:57.905Z] Platform:      win32
+[debug] [2024-11-02T20:27:57.906Z] Node Version:  v22.5.1
+[debug] [2024-11-02T20:27:57.906Z] Time:          Sun Nov 03 2024 01:57:57 GMT+0530 (India Standard Time)
+[debug] [2024-11-02T20:27:57.906Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-02T20:27:58.078Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-02T20:27:58.079Z] > authorizing via signed-in user (ruby08241@gmail.com)
+[debug] [2024-11-02T20:27:58.172Z] java version "23.0.1" 2024-10-15
+
+[debug] [2024-11-02T20:27:58.172Z] Java(TM) SE Runtime Environment (build 23.0.1+11-39)
+Java HotSpot(TM) 64-Bit Server VM (build 23.0.1+11-39, mixed mode, sharing)
+
+[debug] [2024-11-02T20:27:58.192Z] Parsed Java major version: 23
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2024-11-02T20:27:58.209Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-11-02T20:27:58.209Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-11-02T20:27:58.209Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-11-02T20:27:58.209Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-11-02T20:27:58.210Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-11-02T20:27:58.217Z] [hub] writing locator at C:\Users\ruby0\AppData\Local\Temp\hub-quizzr-4bdde.json
+[debug] [2024-11-02T20:27:58.232Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-02T20:27:58.233Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2024-11-02T20:27:58.233Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\ruby0\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.19.8.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","quizzr-4bdde","--rules","E:\\My Code Works\\Web\\Quizzr\\firestore.rules","--single_project_mode",true],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8080} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\ruby0\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"quizzr-4bdde\",\"--rules\",\"E:\\\\My Code Works\\\\Web\\\\Quizzr\\\\firestore.rules\",\"--single_project_mode\",true],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8080}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2024-11-02T20:27:59.561Z] Nov 03, 2024 1:57:59 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:9150
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:57:59 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\r\nINFO: Started WebSocket server on ws://127.0.0.1:9150\r\n"}}
+[debug] [2024-11-02T20:27:59.616Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2024-11-02T20:27:59.616Z] 127.0.0.1:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
+
+If you are running a Firestore in Datastore Mode project, run:
+
+   export DATASTORE_EMULATOR_HOST=127.0.0.1:8080
+
+Note: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"127.0.0.1:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\r\n\n   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080\n\nIf you are running a Firestore in Datastore Mode project, run:\r\n\n   export DATASTORE_EMULATOR_HOST=127.0.0.1:8080\n\nNote: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.\r\nDev App Server is now running.\n\r\n"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[info] i  ui: downloading ui-v1.14.0.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.14.0.zip..."}}
+[debug] [2024-11-02T20:28:04.849Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.14.0.zip 
+[debug] [2024-11-02T20:28:05.139Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.14.0.zip 200
+[debug] [2024-11-02T20:28:05.139Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.14.0.zip [stream]
+[debug] [2024-11-02T20:28:05.587Z] Data is 3615311
+[debug] [2024-11-02T20:28:05.587Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.587Z] [unzip] Processing entry: client\
+[debug] [2024-11-02T20:28:05.587Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\
+[debug] [2024-11-02T20:28:05.588Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=293 bytes, uncompressed_size=293 bytes)
+[debug] [2024-11-02T20:28:05.588Z] [unzip] Processing entry: client\favicon-16x16.png
+[debug] [2024-11-02T20:28:05.588Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.588Z] [unzip] Writing file: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\favicon-16x16.png
+[debug] [2024-11-02T20:28:05.589Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=1433 bytes, uncompressed_size=2611 bytes)
+[debug] [2024-11-02T20:28:05.589Z] [unzip] Processing entry: client\safari-pinned-tab.svg
+[debug] [2024-11-02T20:28:05.589Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.589Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\safari-pinned-tab.svg
+[debug] [2024-11-02T20:28:05.592Z] [unzip] Entry: client/favicon.ico (compressed_size=2933 bytes, uncompressed_size=13294 bytes)
+[debug] [2024-11-02T20:28:05.592Z] [unzip] Processing entry: client\favicon.ico
+[debug] [2024-11-02T20:28:05.592Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.592Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\favicon.ico
+[debug] [2024-11-02T20:28:05.594Z] [unzip] Entry: client/index.html (compressed_size=1363 bytes, uncompressed_size=3071 bytes)
+[debug] [2024-11-02T20:28:05.594Z] [unzip] Processing entry: client\index.html
+[debug] [2024-11-02T20:28:05.594Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.594Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\index.html
+[debug] [2024-11-02T20:28:05.595Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=2684 bytes, uncompressed_size=2684 bytes)
+[debug] [2024-11-02T20:28:05.596Z] [unzip] Processing entry: client\android-chrome-192x192.png
+[debug] [2024-11-02T20:28:05.596Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.596Z] [unzip] Writing file: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\android-chrome-192x192.png
+[debug] [2024-11-02T20:28:05.597Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=2123 bytes, uncompressed_size=2152 bytes)
+[debug] [2024-11-02T20:28:05.597Z] [unzip] Processing entry: client\apple-touch-icon.png
+[debug] [2024-11-02T20:28:05.597Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.598Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\apple-touch-icon.png
+[debug] [2024-11-02T20:28:05.598Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=5369 bytes, uncompressed_size=5411 bytes)
+[debug] [2024-11-02T20:28:05.599Z] [unzip] Processing entry: client\android-chrome-512x512.png
+[debug] [2024-11-02T20:28:05.599Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.599Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\android-chrome-512x512.png
+[debug] [2024-11-02T20:28:05.599Z] [unzip] Entry: client/manifest.json (compressed_size=245 bytes, uncompressed_size=551 bytes)
+[debug] [2024-11-02T20:28:05.600Z] [unzip] Processing entry: client\manifest.json
+[debug] [2024-11-02T20:28:05.600Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.600Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\manifest.json
+[debug] [2024-11-02T20:28:05.601Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2024-11-02T20:28:05.601Z] [unzip] Processing entry: client\robots.txt
+[debug] [2024-11-02T20:28:05.601Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.601Z] [unzip] Writing file: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\robots.txt
+[debug] [2024-11-02T20:28:05.601Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=2034 bytes, uncompressed_size=2034 bytes)
+[debug] [2024-11-02T20:28:05.601Z] [unzip] Processing entry: client\mstile-150x150.png
+[debug] [2024-11-02T20:28:05.601Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.602Z] [unzip] Writing file: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\mstile-150x150.png
+[debug] [2024-11-02T20:28:05.602Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.602Z] [unzip] Processing entry: client\assets\
+[debug] [2024-11-02T20:28:05.602Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\
+[debug] [2024-11-02T20:28:05.603Z] [unzip] Entry: client/assets/index-ClZTY_JS.js.map (compressed_size=2328270 bytes, uncompressed_size=9947004 bytes)
+[debug] [2024-11-02T20:28:05.603Z] [unzip] Processing entry: client\assets\index-ClZTY_JS.js.map
+[debug] [2024-11-02T20:28:05.603Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets
+[debug] [2024-11-02T20:28:05.603Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\index-ClZTY_JS.js.map
+[debug] [2024-11-02T20:28:05.654Z] [unzip] Entry: client/assets/index-ClZTY_JS.js (compressed_size=567195 bytes, uncompressed_size=2035940 bytes)
+[debug] [2024-11-02T20:28:05.655Z] [unzip] Processing entry: client\assets\index-ClZTY_JS.js
+[debug] [2024-11-02T20:28:05.655Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets
+[debug] [2024-11-02T20:28:05.655Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\index-ClZTY_JS.js
+[debug] [2024-11-02T20:28:05.666Z] [unzip] Entry: client/assets/index-BdgySamB.css (compressed_size=35979 bytes, uncompressed_size=298654 bytes)
+[debug] [2024-11-02T20:28:05.666Z] [unzip] Processing entry: client\assets\index-BdgySamB.css
+[debug] [2024-11-02T20:28:05.666Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets
+[debug] [2024-11-02T20:28:05.666Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\index-BdgySamB.css
+[debug] [2024-11-02T20:28:05.669Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.669Z] [unzip] Processing entry: client\assets\extensions\
+[debug] [2024-11-02T20:28:05.670Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\extensions\
+[debug] [2024-11-02T20:28:05.670Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2024-11-02T20:28:05.670Z] [unzip] Processing entry: client\assets\extensions\default-extension.png
+[debug] [2024-11-02T20:28:05.670Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\extensions
+[debug] [2024-11-02T20:28:05.670Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\extensions\default-extension.png
+[debug] [2024-11-02T20:28:05.671Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.671Z] [unzip] Processing entry: client\assets\img\
+[debug] [2024-11-02T20:28:05.671Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\img\
+[debug] [2024-11-02T20:28:05.671Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2024-11-02T20:28:05.671Z] [unzip] Processing entry: client\assets\img\database.png
+[debug] [2024-11-02T20:28:05.671Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\img
+[debug] [2024-11-02T20:28:05.672Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\img\database.png
+[debug] [2024-11-02T20:28:05.672Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.673Z] [unzip] Processing entry: client\assets\provider-icons\
+[debug] [2024-11-02T20:28:05.673Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\
+[debug] [2024-11-02T20:28:05.673Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2024-11-02T20:28:05.673Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_saml.svg
+[debug] [2024-11-02T20:28:05.673Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.673Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_saml.svg
+[debug] [2024-11-02T20:28:05.674Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2024-11-02T20:28:05.674Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_phone.svg
+[debug] [2024-11-02T20:28:05.674Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.674Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_phone.svg
+[debug] [2024-11-02T20:28:05.675Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2024-11-02T20:28:05.675Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2024-11-02T20:28:05.675Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.675Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2024-11-02T20:28:05.676Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2024-11-02T20:28:05.676Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2024-11-02T20:28:05.677Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.677Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2024-11-02T20:28:05.677Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2024-11-02T20:28:05.678Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_apple.svg
+[debug] [2024-11-02T20:28:05.678Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.678Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_apple.svg
+[debug] [2024-11-02T20:28:05.678Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2024-11-02T20:28:05.678Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_github.svg
+[debug] [2024-11-02T20:28:05.678Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.679Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_github.svg
+[debug] [2024-11-02T20:28:05.679Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2024-11-02T20:28:05.679Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2024-11-02T20:28:05.679Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.680Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2024-11-02T20:28:05.680Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2024-11-02T20:28:05.680Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2024-11-02T20:28:05.680Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.681Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2024-11-02T20:28:05.681Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2024-11-02T20:28:05.681Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2024-11-02T20:28:05.681Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.682Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2024-11-02T20:28:05.682Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2024-11-02T20:28:05.682Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2024-11-02T20:28:05.682Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.682Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2024-11-02T20:28:05.683Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2024-11-02T20:28:05.683Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_email.svg
+[debug] [2024-11-02T20:28:05.683Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.683Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_email.svg
+[debug] [2024-11-02T20:28:05.684Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2024-11-02T20:28:05.684Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_google.svg
+[debug] [2024-11-02T20:28:05.684Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.685Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_google.svg
+[debug] [2024-11-02T20:28:05.685Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2024-11-02T20:28:05.685Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2024-11-02T20:28:05.685Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons
+[debug] [2024-11-02T20:28:05.686Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2024-11-02T20:28:05.686Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2024-11-02T20:28:05.686Z] [unzip] Processing entry: client\browserconfig.xml
+[debug] [2024-11-02T20:28:05.686Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.687Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\browserconfig.xml
+[debug] [2024-11-02T20:28:05.687Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=475 bytes, uncompressed_size=475 bytes)
+[debug] [2024-11-02T20:28:05.687Z] [unzip] Processing entry: client\favicon-32x32.png
+[debug] [2024-11-02T20:28:05.687Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client
+[debug] [2024-11-02T20:28:05.687Z] [unzip] Writing file: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\client\favicon-32x32.png
+[debug] [2024-11-02T20:28:05.688Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.688Z] [unzip] Processing entry: server\
+[debug] [2024-11-02T20:28:05.688Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\
+[debug] [2024-11-02T20:28:05.688Z] [unzip] Entry: server/server.mjs.map (compressed_size=296496 bytes, uncompressed_size=1355667 bytes)
+[debug] [2024-11-02T20:28:05.688Z] [unzip] Processing entry: server\server.mjs.map
+[debug] [2024-11-02T20:28:05.688Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server
+[debug] [2024-11-02T20:28:05.688Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\server.mjs.map
+[debug] [2024-11-02T20:28:05.694Z] [unzip] Entry: server/server.mjs (compressed_size=315701 bytes, uncompressed_size=1172682 bytes)
+[debug] [2024-11-02T20:28:05.694Z] [unzip] Processing entry: server\server.mjs
+[debug] [2024-11-02T20:28:05.694Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server
+[debug] [2024-11-02T20:28:05.694Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\server.mjs
+[debug] [2024-11-02T20:28:05.700Z] [unzip] Entry: server/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-11-02T20:28:05.700Z] [unzip] Processing entry: server\assets\
+[debug] [2024-11-02T20:28:05.700Z] [unzip] mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\assets\
+[debug] [2024-11-02T20:28:05.700Z] [unzip] Entry: server/assets/multipart-parser-DGCUZdXu.mjs.map (compressed_size=4791 bytes, uncompressed_size=17918 bytes)
+[debug] [2024-11-02T20:28:05.700Z] [unzip] Processing entry: server\assets\multipart-parser-DGCUZdXu.mjs.map
+[debug] [2024-11-02T20:28:05.700Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\assets
+[debug] [2024-11-02T20:28:05.700Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\assets\multipart-parser-DGCUZdXu.mjs.map
+[debug] [2024-11-02T20:28:05.701Z] [unzip] Entry: server/assets/multipart-parser-DGCUZdXu.mjs (compressed_size=2621 bytes, uncompressed_size=10390 bytes)
+[debug] [2024-11-02T20:28:05.701Z] [unzip] Processing entry: server\assets\multipart-parser-DGCUZdXu.mjs
+[debug] [2024-11-02T20:28:05.701Z] [unzip] else mkdir: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\assets
+[debug] [2024-11-02T20:28:05.701Z] [unzip] deflating: C:\Users\ruby0\.cache\firebase\emulators\ui-v1.14.0\server\assets\multipart-parser-DGCUZdXu.mjs
+[debug] [2024-11-02T20:28:05.703Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-02T20:28:05.703Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-11-02T20:28:05.703Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\ruby0\\.cache\\firebase\\emulators\\ui-v1.14.0\\server\\server.mjs"],"optionalArgs":[],"joinArgs":false,"shell":false,"port":4000} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\ruby0\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.14.0\\\\server\\\\server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false,\"shell\":false,\"port\":4000}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-11-02T20:28:05.860Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2024-11-02T20:28:05.860Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[debug] [2024-11-02T20:28:05.914Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-11-02T20:28:11.599Z] Nov 03, 2024 1:58:11 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:58:11 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2024-11-02T20:28:11.639Z] Nov 03, 2024 1:58:11 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:58:11 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2024-11-02T20:28:11.784Z] Nov 03, 2024 1:58:11 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:58:11 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected HTTP/2 connection.\r\n"}}
+[debug] [2024-11-02T20:28:32.035Z] Nov 03, 2024 1:58:32 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:58:32 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2024-11-02T20:28:39.458Z] Nov 03, 2024 1:58:39 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Nov 03, 2024 1:58:39 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}

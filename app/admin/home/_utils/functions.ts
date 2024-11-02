@@ -64,14 +64,64 @@ export const handleClassCreation = async (
   }
 };
 
-export const handleClassJoin = async (formData) => {
-  const uploadObject = formData;
-  const docSnap = await getDoc(doc(db, "classrooms", formData.classRoomCode));
-
-  if (docSnap.exists()) {
-    await setDoc(doc(db, "classrooms", formData.classRoomCode), uploadObject);
-    setRefreshClasses((prev) => !prev);
+export const handleClassJoin = async (
+  formData: ClassRoomDoc,
+  selectedSubject: string,
+  refreshClasses: () => void,
+  errorMessageSetter: (errorMessage: string) => void,
+  teacherData: UserContextType
+) => {
+  const classSnap = await getDoc(doc(db, "classrooms", formData.classRoomCode));
+  if (classSnap.exists()) {
+    if (teacherData && formData) {
+      const teacherSnap = await getDoc(
+        doc(
+          db,
+          `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+        )
+      );
+      if (!teacherSnap.exists()) {
+        try {
+          const teacherDetailsDoc: TeacherInClassDoc = {
+            teacherName: teacherData.userName,
+            teacherEmail: teacherData.userEmail,
+            isCreator: false,
+            selectedSubject: selectedSubject,
+          };
+          await setDoc(
+            doc(
+              db,
+              `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+            ),
+            teacherDetailsDoc
+          );
+          const teacherNameSnap = await getDoc(
+            doc(
+              db,
+              `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
+            )
+          );
+          if(teacherNameSnap.exists() && teacherNameSnap.data().relatedTeacherName == ""){
+            await updateDoc(
+              doc(
+                db,
+                `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
+              ),
+              { relatedTeacherName: teacherData.userName }
+            );
+          }
+          else{
+            errorMessageSetter("Teacher already exists in selected subject.")
+          }
+          
+        } catch (error: any) {
+          errorMessageSetter(error.message);
+        }
+      } else {
+        errorMessageSetter("You are already in class.");
+      }
+    }
   } else {
-    setErrorMessage("Classroom doesn't exist.");
+    errorMessageSetter("Classroom not created.");
   }
 };

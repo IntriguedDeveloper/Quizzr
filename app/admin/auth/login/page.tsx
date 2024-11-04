@@ -4,7 +4,7 @@ import Layout from "../Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/clientApp";
 import { useRouter } from "next/navigation";
-import { AdminAuthorizationLogin } from "../signup/handler";
+import { AdminAuthorizationLogin } from "../handler";
 import { getDocs, where, query, collection } from "firebase/firestore";
 
 const Login: React.FC = () => {

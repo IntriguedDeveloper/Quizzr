@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import CreateClassRoom from "./CreateClassRoom";
 import JoinClassRoom from "./JoinClassRoom";
-
+//TODO: test joining functionality
 const Dropdown: React.FC<{ refreshClassesSetter: () => void }> = ({
   refreshClassesSetter,
 }) => {
   const [joinToggle, setJoinToggle] = useState(false);
-
+  
   return (
     <div className="flex flex-col justify-center items-center w-full lg:w-2/5 animate-wiggle">
       <div className="flex flex-row text-base lg:text-xl w-full justify-center items-center">
@@ -32,7 +32,11 @@ const Dropdown: React.FC<{ refreshClassesSetter: () => void }> = ({
         </div>
       </div>
       <div className="w-full h-full flex justify-center">
-        {joinToggle ? <JoinClassRoom /> : <CreateClassRoom refreshClassesSetter={refreshClassesSetter}/>}
+        {joinToggle ? (
+          <JoinClassRoom refreshClassesSetter={refreshClassesSetter} />
+        ) : (
+          <CreateClassRoom refreshClassesSetter={refreshClassesSetter} />
+        )}
       </div>
     </div>
   );

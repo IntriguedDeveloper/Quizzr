@@ -11,56 +11,67 @@ export const handleClassCreation = async (
   errorMessageSetter: (errorMessage: string) => void,
   teacherData: UserContextType
 ) => {
-  try {
-    const docSnap = await getDoc(doc(db, "classrooms", formData.classRoomCode));
-    const teacherDetailsDoc: TeacherInClassDoc = {
-      teacherName: teacherData.userName,
-      teacherEmail: teacherData.userEmail,
-      isCreator: true,
-      selectedSubject: selectedSubject,
-    };
-    if (!docSnap.exists()) {
-      try {
-        await setDoc(doc(db, "classrooms", formData.classRoomCode), formData); //add class document
-        await setDoc(
-          doc(
-            db,
-            `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
-          ),
-          teacherDetailsDoc
-        ); //add teacher
-        subjectList.forEach(async (subjectName) => {
+  const codeFormatRegex = /^\d{2}_A\d_\d{4}$/;
+  if (codeFormatRegex.test(formData.classRoomCode)) {
+    try {
+      const docSnap = await getDoc(
+        doc(db, "classrooms", formData.classRoomCode)
+      );
+      const teacherDetailsDoc: TeacherInClassDoc = {
+        teacherName: teacherData.userName,
+        teacherEmail: teacherData.userEmail,
+        isCreator: true,
+        selectedSubject: selectedSubject,
+      };
+
+      if (!docSnap.exists()) {
+        try {
+          await setDoc(doc(db, "classrooms", formData.classRoomCode), {
+            ...formData,
+            classCreator: teacherData.userName,
+          }); //add class document
           await setDoc(
             doc(
               db,
-              `classrooms/${formData.classRoomCode}/subjects/${subjectName}`
+              `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+            ),
+            teacherDetailsDoc
+          ); //add teacher
+          subjectList.forEach(async (subjectName) => {
+            await setDoc(
+              doc(
+                db,
+                `classrooms/${formData.classRoomCode}/subjects/${subjectName}`
+              ),
+              {
+                subjectName: subjectName,
+                relatedTeacherName: "",
+              }
+            );
+          }); //add all subjects
+          await updateDoc(
+            doc(
+              db,
+              `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
             ),
             {
-              subjectName: subjectName,
-              relatedTeacherName: "",
+              relatedTeacherName: teacherData.userName,
             }
-          );
-        }); //add all subjects
-        await updateDoc(
-          doc(
-            db,
-            `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
-          ),
-          {
-            relatedTeacherName: teacherData.userName,
-          }
-        ); //update teacher name
-        refreshClasses();
-      } catch (error: any) {
-        let errorMessage = error.message;
+          ); //update teacher name
+          refreshClasses();
+        } catch (error: any) {
+          let errorMessage = error.message;
+          errorMessageSetter(errorMessage);
+        }
+      } else {
+        let errorMessage = "Classroom already exists.";
         errorMessageSetter(errorMessage);
       }
-    } else {
-      let errorMessage = "Classroom already exists.";
-      errorMessageSetter(errorMessage);
+    } catch (error: any) {
+      errorMessageSetter(error.message);
     }
-  } catch (error: any) {
-    errorMessageSetter(error.message);
+  } else {
+    errorMessageSetter("Class code format inappropriate.");
   }
 };
 
@@ -101,7 +112,10 @@ export const handleClassJoin = async (
               `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
             )
           );
-          if(teacherNameSnap.exists() && teacherNameSnap.data().relatedTeacherName == ""){
+          if (
+            teacherNameSnap.exists() &&
+            teacherNameSnap.data().relatedTeacherName == ""
+          ) {
             await updateDoc(
               doc(
                 db,
@@ -109,11 +123,9 @@ export const handleClassJoin = async (
               ),
               { relatedTeacherName: teacherData.userName }
             );
+          } else {
+            errorMessageSetter("Teacher already exists in selected subject.");
           }
-          else{
-            errorMessageSetter("Teacher already exists in selected subject.")
-          }
-          
         } catch (error: any) {
           errorMessageSetter(error.message);
         }

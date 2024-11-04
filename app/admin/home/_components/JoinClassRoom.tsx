@@ -13,6 +13,7 @@ const JoinClassRoom: React.FC<{ refreshClassesSetter: () => void }> = ({
   const [formData, setFormData] = useState<ClassRoomDoc>({
     classRoomName: "",
     classRoomCode: "",
+    
   });
   const [errorMessage, setErrorMessage] = useState("");
 

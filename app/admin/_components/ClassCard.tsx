@@ -12,6 +12,8 @@ export default function ClassCard({
   SelectedSubject?: string | null;
   isLoading: boolean;
 }) {
+  //TODO : implement dynamic routing after onClick
+  //TODO: implement Context API to fetch class details in dynamic route segment
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function ClassCard({
           : "hover:scale-105 hover:border-2 hover:border-blue-400"
       }`}
       onClick={() => {
-        router.push("./home/manageClassroom");
+        router.push(`./home/manageClassroom/${ClassCode}`);
       }}
     >
       {isLoading ? (

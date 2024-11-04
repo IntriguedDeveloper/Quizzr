@@ -1,10 +1,11 @@
 "use server";
 import admin from "firebase-admin";
 import adminKey from "@/firebase/quizzr-4bdde-firebase-adminsdk-l3pg1-f0472c1195.json";
+import { applicationDefault } from "firebase-admin/app";
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(JSON.stringify(adminKey)),
+    credential: applicationDefault(),
   });
 }
 

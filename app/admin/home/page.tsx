@@ -1,12 +1,7 @@
 "use client";
 import { db } from "@/firebase/clientApp";
 import addClassRoom from "@/public/addClassRoom.png";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs
-} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import findError from "@/public/findError.png";
@@ -31,7 +26,7 @@ export default function ClassroomViewer() {
   const [relevantClasses, setRelevantClasses] = useState<ClassObject[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshClasses, setRefreshClasses] = useState(false);
- 
+
   useEffect(() => {
     async function fetchClasses(teacherName: string) {
       try {

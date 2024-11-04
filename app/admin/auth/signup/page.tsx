@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Layout from "../Layout";
-import { AdminAuthorizationLogin, AdminAuthorizationSignUp } from "./handler";
+import { AdminAuthorizationLogin, AdminAuthorizationSignUp } from "../handler";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/clientApp";
 import { useRouter } from "next/navigation";

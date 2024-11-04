@@ -35,6 +35,7 @@ export function UserContextProvider({
   });
 
   useEffect(() => {
+    console.log("context effect ran")
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         let userID = user.uid;

@@ -35,18 +35,17 @@ export function UserContextProvider({
   });
 
   useEffect(() => {
-    console.log("context effect ran")
+    console.log("context effect ran");
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         let userID = user.uid;
         let email = user.email;
         let userName = "";
-        let isAdmin: boolean = false;
+        let isAdmin: boolean = false;   
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapShot = await getDocs(q);
-        
+
         querySnapShot.forEach(async (doc) => {
-          console.log(doc.data());
           userName = doc.data().userName;
           isAdmin = doc.data().isAdmin;
         });
@@ -63,7 +62,7 @@ export function UserContextProvider({
           userEmail: null,
           userName: null,
           isAdmin: false,
-          isLoading:false,
+          isLoading: false,
         });
       }
     });

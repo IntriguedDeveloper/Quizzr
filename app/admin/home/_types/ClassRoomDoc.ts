@@ -1,6 +1,6 @@
 export type ClassRoomDoc = {
-  classRoomName?: string;
-  classRoomCode: string;
+  className?: string;
+  classCode: string;
   classCreator?: string;
 };
 export type TeacherInClassDoc = {

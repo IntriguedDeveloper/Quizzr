@@ -10,8 +10,8 @@ import { useUserContext } from "@/context/UserContext";
 import Dropdown from "./_components/Dropdown";
 
 type ClassDataObject = {
-  classRoomCode: string;
-  classRoomName: string;
+  classCode: string;
+  className: string;
 };
 
 type ClassObject = {
@@ -40,7 +40,7 @@ export default function ClassroomViewer() {
           const teacherDocRef = doc(
             db,
             `classrooms/${
-              classDoc.data().classRoomCode
+              classDoc.data().classCode
             }/teachers/${teacherName}`
           );
           const relevantTeacherDocSnapShot = await getDoc(teacherDocRef);
@@ -80,9 +80,9 @@ export default function ClassroomViewer() {
           {relevantClasses.length > 0 ? (
             relevantClasses.map((classObject: ClassObject) => (
               <ClassCard
-                key={classObject.classDataObject.classRoomCode}
-                ClassName={classObject.classDataObject.classRoomName}
-                ClassCode={classObject.classDataObject.classRoomCode}
+                key={classObject.classDataObject.classCode}
+                ClassName={classObject.classDataObject.className}
+                ClassCode={classObject.classDataObject.classCode}
                 SelectedSubject={classObject.optedSubject}
                 isLoading={false}
               />

@@ -12,10 +12,11 @@ export const handleClassCreation = async (
   teacherData: UserContextType
 ) => {
   const codeFormatRegex = /^\d{2}_A\d_\d{4}$/;
-  if (codeFormatRegex.test(formData.classRoomCode)) {
+  console.log(formData)
+  if (codeFormatRegex.test(formData.classCode)) {
     try {
       const docSnap = await getDoc(
-        doc(db, "classrooms", formData.classRoomCode)
+        doc(db, "classrooms", formData.classCode)
       );
       const teacherDetailsDoc: TeacherInClassDoc = {
         teacherName: teacherData.userName,
@@ -26,14 +27,14 @@ export const handleClassCreation = async (
 
       if (!docSnap.exists()) {
         try {
-          await setDoc(doc(db, "classrooms", formData.classRoomCode), {
+          await setDoc(doc(db, "classrooms", formData.classCode), {
             ...formData,
             classCreator: teacherData.userName,
           }); //add class document
           await setDoc(
             doc(
               db,
-              `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+              `classrooms/${formData.classCode}/teachers/${teacherData.userName}`
             ),
             teacherDetailsDoc
           ); //add teacher
@@ -41,7 +42,7 @@ export const handleClassCreation = async (
             await setDoc(
               doc(
                 db,
-                `classrooms/${formData.classRoomCode}/subjects/${subjectName}`
+                `classrooms/${formData.classCode}/subjects/${subjectName}`
               ),
               {
                 subjectName: subjectName,
@@ -52,7 +53,7 @@ export const handleClassCreation = async (
           await updateDoc(
             doc(
               db,
-              `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
+              `classrooms/${formData.classCode}/subjects/${selectedSubject}`
             ),
             {
               relatedTeacherName: teacherData.userName,
@@ -82,13 +83,13 @@ export const handleClassJoin = async (
   errorMessageSetter: (errorMessage: string) => void,
   teacherData: UserContextType
 ) => {
-  const classSnap = await getDoc(doc(db, "classrooms", formData.classRoomCode));
+  const classSnap = await getDoc(doc(db, "classrooms", formData.classCode));
   if (classSnap.exists()) {
     if (teacherData && formData) {
       const teacherSnap = await getDoc(
         doc(
           db,
-          `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+          `classrooms/${formData.classCode}/teachers/${teacherData.userName}`
         )
       );
       if (!teacherSnap.exists()) {
@@ -102,14 +103,14 @@ export const handleClassJoin = async (
           await setDoc(
             doc(
               db,
-              `classrooms/${formData.classRoomCode}/teachers/${teacherData.userName}`
+              `classrooms/${formData.classCode}/teachers/${teacherData.userName}`
             ),
             teacherDetailsDoc
           );
           const teacherNameSnap = await getDoc(
             doc(
               db,
-              `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
+              `classrooms/${formData.classCode}/subjects/${selectedSubject}`
             )
           );
           if (
@@ -119,7 +120,7 @@ export const handleClassJoin = async (
             await updateDoc(
               doc(
                 db,
-                `classrooms/${formData.classRoomCode}/subjects/${selectedSubject}`
+                `classrooms/${formData.classCode}/subjects/${selectedSubject}`
               ),
               { relatedTeacherName: teacherData.userName }
             );

@@ -1,9 +1,13 @@
 import ClassDetails from "@/app/admin/_components/ClassDetails";
 
-export default function ManageClassRoom(){
-  return(
+export default function ManageClassRoom({
+  params,
+}: {
+  params: { classRoomCode: string };
+}) {
+  return (
     <>
-      <ClassDetails></ClassDetails>
+      <ClassDetails ClassCode={params.classRoomCode}></ClassDetails>
     </>
-  )
+  );
 }

@@ -13,8 +13,8 @@ const CreateClassRoom: React.FC<{ refreshClassesSetter: () => void }> = ({
   const [currentSubject, setCurrentSubject] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
   const [formData, setFormData] = useState<ClassRoomDoc>({
-    classRoomName: "",
-    classRoomCode: "",
+    className: "",
+    classCode: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ const CreateClassRoom: React.FC<{ refreshClassesSetter: () => void }> = ({
             type="text"
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none"
             placeholder="Enter classroom name"
-            name="classRoomName"
+            name="className"
             onChange={handleInputChange}
           />
         </div>
@@ -58,7 +58,7 @@ const CreateClassRoom: React.FC<{ refreshClassesSetter: () => void }> = ({
             type="text"
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 outline-none"
             placeholder="Enter class code (Eg : 11_A1_2026)"
-            name="classRoomCode"
+            name="classCode"
             onChange={handleInputChange}
           />
         </div>

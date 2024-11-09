@@ -35,9 +35,9 @@ export default function ClassDetails({ ClassCode }: { ClassCode: string }) {
 	};
 
 	return (
-		<div className="h-full w-screen flex justify-start items-center flex-col">
+		<div className="h-full w-screen flex justify-start lg:items-center flex-col">
 			<div
-				className="w-5/6 p-2 bg-blue-400 rounded-lg flex flex-col items-center justify-center mt-2 text-2xl cursor-pointer"
+				className="lg:w-5/6 w-full p-2 bg-blue-400 rounded-lg flex flex-col items-center justify-center mt-2 text-2xl cursor-pointer"
 				onClick={() => {
 					setClassDetailsDropDownToggle(!classDetailsDropDownToggle);
 				}}

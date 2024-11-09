@@ -4,6 +4,7 @@ import { useUserContext } from "@/context/UserContext";
 import { db } from "@/firebase/clientApp";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { QuestionCard } from "./QuestionCard";
 
 interface AddQuizProps {
 	classCode: string;
@@ -35,7 +36,7 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 	}, [teacherName, classCode]);
 
 	return (
-		<div className="w-5/6 bg-blue-300 mt-2 rounded-lg flex flex-col items-center justify-center p-4 mb-5 shadow-sm">
+		<div className="lg:w-5/6 w-full bg-blue-300 mt-2 rounded-lg flex flex-col items-center justify-center p-2 mb-5 shadow-sm">
 			<h2 className="text-2xl font-semibold text-blue-800 mb-4">
 				Create a Quiz
 			</h2>
@@ -47,7 +48,8 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 					"Loading selected subject..."
 				)}
 			</div>
-      
+			<QuestionCard></QuestionCard>
+			
 		</div>
 	);
 }

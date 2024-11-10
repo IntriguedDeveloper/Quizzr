@@ -39,7 +39,7 @@ export default function Navbar({
         {profileVisibility && (
           <div className="w-full flex justify-end items-center">
             <Image
-              src={ProfileIcon}
+              src={ProfileIcon} 
               alt="Profile Icon"
               className="h-10 w-10 hover:cursor-pointer"
               onClick={() => router.push("/admin/home/profile")}

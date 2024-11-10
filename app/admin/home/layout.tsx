@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           isOpen={isSidebarOpen}
           userName={teacherData.userName}
         ></Sidebar>
-        <div className="h-[calc(100vh-80px)] w-full flex flex-row items-start justify-center p-0 overflow-y-auto">
+        <div className="h-full w-full flex flex-row items-start justify-center p-0 overflow-y-auto">
           {children}
         </div>
         

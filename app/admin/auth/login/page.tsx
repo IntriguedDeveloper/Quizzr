@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/clientApp";
@@ -14,6 +14,11 @@ const Login: React.FC = () => {
 
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
+
+	useEffect(() => {
+		// Prefetch the dashboard page
+		router.prefetch("/admin/home");
+	}, [router]);
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -47,7 +52,8 @@ const Login: React.FC = () => {
 						userName = doc.data().userName;
 					});
 
-					router.push(`/admin/home`);
+					await router.push(`/admin/home`);
+					setIsLoading(false);
 				}
 			} catch (error: any) {
 				console.log(error.code);

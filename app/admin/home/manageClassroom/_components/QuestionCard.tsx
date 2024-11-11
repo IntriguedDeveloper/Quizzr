@@ -7,6 +7,7 @@ export function QuestionCard({
 	nextQuestionTransition,
 	previousQuestionTransition,
 	questionBody,
+	animationClass,
 }: {
 	currentIndex: number;
 	updateQuestion: (
@@ -16,6 +17,7 @@ export function QuestionCard({
 	nextQuestionTransition: (currentIndex: number) => void;
 	previousQuestionTransition: (currentIndex: number) => void;
 	questionBody: QuestionConstructType;
+	animationClass: string;
 }) {
 	const [questionTitle, setQuestionTitle] = useState<string>("");
 	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(0);
@@ -81,7 +83,7 @@ export function QuestionCard({
 	}
 
 	return (
-		<div className="flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 rounded-lg">
+		<div className={`flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 rounded-lg  ${animationClass}`} >
 			<a className="mb-2 text-xl font-semibold text-slate-600">
 				Question Number {currentIndex + 1}
 			</a>
@@ -112,20 +114,17 @@ export function QuestionCard({
 					></Option>
 				))}
 			</div>
-			<div className="mt-1">
+			<div className="mt-1 flex flex-col items-center justify-center">
 				<div className="w-full mb-2 text-sm text-gray-700">
-					Select correct option : 
+					Select correct option :
 				</div>
 				<select
 					name="correctIndex"
-					className="h-10 p-2 rounded-md"
+					className="h-10 p-2 rounded-md w-32"
 					onChange={CorrectOptionIndexSetter}
-					value={correctOptionIndex || ""}
 				>
-					<option value="">
-						{correctOptionIndex === 0
-							? null
-							: "Selected Correct Index: " + correctOptionIndex}
+					<option value="" disabled selected hidden>
+						{correctOptionIndex === 0 ? 1 : correctOptionIndex}
 					</option>
 					{Array.from({ length: 4 }).map((_, index) => (
 						<option value={index + 1} key={index}>

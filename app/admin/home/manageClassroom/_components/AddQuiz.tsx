@@ -22,25 +22,27 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 	const TeacherDetails = useUserContext();
 	const teacherName = TeacherDetails?.userName || "Unknown Teacher";
 
-	// Initialize questionsArray with a single empty question
 	const initialChoices = Array.from({ length: 4 }, (_, index) => ({
 		choiceIndex: index,
 		choiceContent: "",
 	}));
 
-	const [questionsArray, setQuestionsArray] = useState<QuestionConstructType[]>([
-		{
-			QuestionTitle: "",
-			AnswerChoices: initialChoices,
-			CorrectOptionIndex: 0,
-		},
-	]);
+	const [questionsArray, setQuestionsArray] = useState<QuestionConstructType[]>(
+		[
+			{
+				QuestionTitle: "",
+				AnswerChoices: initialChoices,
+				CorrectOptionIndex: 0,
+			},
+		]
+	);
 
-	// Initialize selectedSubject with a fallback loading state
-	const [selectedSubject, setSelectedSubject] = useState<string | null>("Loading selected subject...");
+	const [selectedSubject, setSelectedSubject] = useState<string | null>(
+		"Loading selected subject..."
+	);
 	const [renderIndex, setRenderIndex] = useState(0);
+	const [animationClass, setAnimationClass] = useState("animate-fadeInVertical"); // Animation state
 
-	// Fetch the selected subject based on teacher name and class code
 	useEffect(() => {
 		const fetchSelectedSubject = async () => {
 			try {
@@ -64,7 +66,6 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 		fetchSelectedSubject();
 	}, [teacherName, classCode]);
 
-	// Update a question in the questionsArray state
 	const updateQuestion = (
 		QuestionBodyObject: QuestionConstructType,
 		QuestionIndex: number
@@ -74,42 +75,40 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 				const updatedArray = prevArray?.map((item, i) =>
 					i === QuestionIndex ? { ...QuestionBodyObject } : item
 				);
-				resolve(); // Resolve the promise after updating the state
+				resolve();
 				return updatedArray;
 			});
 		});
 	};
+
 	const nextQuestionTransition = (currentIndex: number) => {
-    setQuestionsArray((prevQuestions) => {
-        if (currentIndex === prevQuestions.length - 1) {
-            // Append a new empty question if reaching the end of the array
-            return [
-                ...prevQuestions,
-                {
-                    QuestionTitle: "",
-                    AnswerChoices: initialChoices,
-                    CorrectOptionIndex: 0,
-                },
-            ];
-        }
-        return prevQuestions;
-    });
-    setRenderIndex((prevRenderIndex) => prevRenderIndex + 1);
-};
+		setQuestionsArray((prevQuestions) => {
+			if (currentIndex === prevQuestions.length - 1) {
+				return [
+					...prevQuestions,
+					{
+						QuestionTitle: "",
+						AnswerChoices: initialChoices,
+						CorrectOptionIndex: 0,
+					},
+				];
+			}
+			return prevQuestions;
+		});
+		setRenderIndex((prevRenderIndex) => prevRenderIndex + 1);
+		setAnimationClass("animate-slideLeftToRight"); // Transition animation class for next
+	};
 
-
-	// Transition to the previous question if conditions are met
 	const previousQuestionTransition = (currentIndex: number) => {
 		if (currentIndex === renderIndex && renderIndex !== 0) {
 			setRenderIndex((prevRenderIndex) => prevRenderIndex - 1);
+			setAnimationClass("animate-slideRightToLeft"); // Transition animation class for previous
 		}
 	};
 
 	return (
 		<div className="lg:w-5/6 w-full bg-blue-300 mt-2 rounded-lg flex flex-col items-center justify-center p-2 mb-5 shadow-sm">
-			<h2 className="text-2xl font-semibold text-blue-800 mb-4">
-				Create a Quiz
-			</h2>
+			<h2 className="text-2xl font-semibold text-blue-800 mb-4">Create a Quiz</h2>
 
 			<div className="text-lg font-bold">
 				{selectedSubject ? (
@@ -118,14 +117,16 @@ export default function AddQuiz({ classCode }: AddQuizProps) {
 					"Loading selected subject..."
 				)}
 			</div>
+
 			<QuestionCard
 				updateQuestion={updateQuestion}
 				currentIndex={renderIndex}
 				nextQuestionTransition={nextQuestionTransition}
 				previousQuestionTransition={previousQuestionTransition}
 				key={renderIndex}
-				questionBody={questionsArray && questionsArray[renderIndex]}
-			></QuestionCard>
+				questionBody={questionsArray[renderIndex]}
+				animationClass={animationClass} // Pass the animation class here
+			/>
 		</div>
 	);
 }

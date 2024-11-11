@@ -68,7 +68,7 @@ export default function ClassroomViewer() {
     setRefreshClasses(true);
   };
   return (
-    <div className="p-6 space-y-6 flex-col flex justify-center items-center w-5/6 flex-shrink-0">
+    <div className="px-2 py-4 space-y-6 flex-col flex justify-center items-center lg:w-5/6 w-full flex-shrink-0">
       <h2 className="text-color-primary text-2xl font-semibold lg:text-3xl">
         Manage Classrooms
       </h2>

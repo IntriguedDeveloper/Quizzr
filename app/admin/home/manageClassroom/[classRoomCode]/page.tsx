@@ -1,4 +1,4 @@
-import ClassDetails from "@/app/admin/_components/ClassDetails";
+import ClassDetails from "@/app/admin/home/manageClassroom/_components/ClassDetails";
 
 export default function ManageClassRoom({
   params,

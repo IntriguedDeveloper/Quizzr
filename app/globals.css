@@ -4,3 +4,78 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap");
 
+/* Animation for vertical fade (initial mount) */
+@keyframes fadeInVertical {
+	0% {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	30% {
+		transform: translateY(-5px);
+	}
+	50% {
+		transform: translateY(5px);
+	}
+	70% {
+		transform: translateY(-3px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Animation for left-to-right slide (next question) */
+@keyframes slideLeftToRight {
+	0% {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	30% {
+		transform: translateX(-15px);
+	}
+	50% {
+		transform: translateX(5px);
+	}
+	70% {
+		transform: translateX(-5px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Animation for right-to-left slide (previous question) */
+@keyframes slideRightToLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	30% {
+		transform: translateX(15px);
+	}
+	50% {
+		transform: translateX(-5px);
+	}
+	70% {
+		transform: translateX(5px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Tailwind utility classes for the animations */
+.animate-fadeInVertical {
+	animation: fadeInVertical 0.7s ease-out;
+}
+
+.animate-slideLeftToRight {
+	animation: slideLeftToRight 0.7s ease-out;
+}
+
+.animate-slideRightToLeft {
+	animation: slideRightToLeft 0.7s ease-out;
+}

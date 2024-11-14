@@ -3,7 +3,6 @@
 import { useUserContext } from "@/app/context/UserContext";
 import { db } from "@/firebase/clientApp";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type ClassRoomContextType = {

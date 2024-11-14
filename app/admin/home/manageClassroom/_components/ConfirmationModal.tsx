@@ -1,23 +1,42 @@
 import { HiX } from "react-icons/hi";
 import TimePicker from "./TimePicker";
 import React, { useState } from "react";
-import { setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
+import { useClassRoomContext } from "@/app/admin/context/ClassRoomContext";
+import { QuestionConstructType } from "./AddQuiz";
 
 export default function ConfirmationModal({
 	onClose,
 	noOfQuestions,
+	questionsArray,
 }: {
 	onClose: () => void;
 	noOfQuestions: number;
+	questionsArray: QuestionConstructType[];
 }) {
+	const classDetails = useClassRoomContext();
 	const [quizDetails, setQuizDetails] = useState({
 		title: "",
 		timeDuration: "",
 		fullMarks: 0,
 	});
-	const handleQuizCreation = async(e: React.MouseEvent<HTMLButtonElement>) => {
-		await setDoc(db, "classrooms/subjects/")
+	const handleQuizCreation = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		const batch = writeBatch(db);
+		const detailsRef = doc(
+			db,
+			`classrooms/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}`
+		);
+		batch.set(detailsRef, quizDetails);
+		for (let i = 0; i < questionsArray.length; i++) {
+			const questionDoc = questionsArray[i];
+			const questionsRef = doc(
+				db,
+				`classrooms/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}/questions/${questionDoc.QuestionTitle}`
+			);
+			batch.set(questionsRef, questionDoc);
+		}
+		await batch.commit();
 	};
 	const timeSetter = (timeDurationString: string) => {
 		setQuizDetails((prev) => ({ ...prev, timeDuration: timeDurationString }));

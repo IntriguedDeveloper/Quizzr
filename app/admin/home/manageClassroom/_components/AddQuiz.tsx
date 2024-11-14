@@ -1,8 +1,6 @@
 "use client";
 import { useUserContext } from "@/app/context/UserContext";
-import { db } from "@/firebase/clientApp";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { QuestionCard } from "./QuestionCard";
 import ConfirmationModal from "./ConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";

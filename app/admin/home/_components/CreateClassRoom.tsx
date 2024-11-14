@@ -3,7 +3,7 @@ import { HiPlusCircle } from "react-icons/hi";
 import { FaTrash } from "react-icons/fa";
 import { handleClassCreation } from "../_utils/functions";
 import { ClassRoomDoc } from "../_types/ClassRoomDoc";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 
 const CreateClassRoom: React.FC<{ refreshClassesSetter: () => void }> = ({
   refreshClassesSetter,

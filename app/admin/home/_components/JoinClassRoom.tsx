@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ClassRoomDoc } from "../_types/ClassRoomDoc";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
 import { handleClassJoin } from "../_utils/functions";

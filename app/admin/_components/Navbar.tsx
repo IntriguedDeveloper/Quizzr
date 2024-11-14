@@ -1,4 +1,4 @@
-import { UserContextType } from "@/context/UserContext";
+import { UserContextType } from "@/app/context/UserContext";
 import { Poppins } from "next/font/google";
 import { HiMenu } from "react-icons/hi";
 import ProfileIcon from "@/public/account.png";

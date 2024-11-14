@@ -1,5 +1,5 @@
 "use client";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 import Navbar from "../_components/Navbar";
 import Sidebar from "../_components/SideBar";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 import {
   getAuth,
   sendPasswordResetEmail,

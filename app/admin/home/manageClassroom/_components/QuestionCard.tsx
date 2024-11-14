@@ -83,7 +83,7 @@ export function QuestionCard({
 	}
 
 	return (
-		<div className={`flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 rounded-lg  ${animationClass}`} >
+		<div className={`flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 lg:rounded-lg  ${animationClass}`} >
 			<a className="mb-2 text-xl font-semibold text-slate-600">
 				Question Number {currentIndex + 1}
 			</a>

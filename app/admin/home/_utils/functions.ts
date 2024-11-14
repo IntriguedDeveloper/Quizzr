@@ -1,7 +1,7 @@
 import { db } from "@/firebase/clientApp";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { ClassRoomDoc, TeacherInClassDoc } from "../_types/ClassRoomDoc";
-import { UserContextType } from "@/context/UserContext";
+import { UserContextType } from "@/app/context/UserContext";
 
 export const handleClassCreation = async (
   formData: ClassRoomDoc,

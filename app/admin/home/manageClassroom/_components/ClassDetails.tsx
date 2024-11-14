@@ -1,35 +1,21 @@
 "use client";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 import { db } from "@/firebase/clientApp";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import AddQuiz from "./AddQuiz";
+import {
+	ClassRoomContextType,
+	useClassRoomContext,
+} from "@/app/admin/context/ClassRoomContext";
 
-export default function ClassDetails({ ClassCode }: { ClassCode: string }) {
+export default function ClassDetails() {
 	const userData = useUserContext();
+	const classData = useClassRoomContext();
 	const [classDetailsDropDownToggle, setClassDetailsDropDownToggle] =
 		useState(false);
-	const [classDetails, setClassDetails] = useState<Record<string, any> | null>(
-		null
-	);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const classesSnapshot = await getDocs(
-				query(collection(db, "classrooms"), where("classCode", "==", ClassCode))
-			);
-			let fetchedDoc = {};
-			classesSnapshot.forEach((doc) => {
-				console.log(doc.data());
-				fetchedDoc = doc.data();
-			});
-			setClassDetails(fetchedDoc);
-		};
-		fetchData();
-	}, [ClassCode]);
-
-	// Function to format keys (e.g., ClassRoomCode -> Class Room Code)
 	const formatKey = (key: string) => {
 		return key.replace(/([a-z])([A-Z])/g, "$1 $2");
 	};
@@ -37,7 +23,7 @@ export default function ClassDetails({ ClassCode }: { ClassCode: string }) {
 	return (
 		<div className="h-full w-screen flex justify-start lg:items-center flex-col">
 			<div
-				className="lg:w-5/6 w-full p-2 bg-blue-400 rounded-lg flex flex-col items-center justify-center mt-2 text-2xl cursor-pointer"
+				className="lg:w-5/6 w-full p-2 bg-blue-400 lg:rounded-lg flex flex-col items-center justify-center mt-2 text-2xl cursor-pointer"
 				onClick={() => {
 					setClassDetailsDropDownToggle(!classDetailsDropDownToggle);
 				}}
@@ -59,9 +45,9 @@ export default function ClassDetails({ ClassCode }: { ClassCode: string }) {
 							: "max-h-0 opacity-0"
 					} bg-white w-full rounded-md mt-2`}
 				>
-					{classDetails ? (
+					{classData ? (
 						<div className="p-4 text-gray-800 text-lg">
-							{Object.entries(classDetails).map(([key, value]) => (
+							{Object.entries(classData).map(([key, value]) => (
 								<div key={key} className="mb-2">
 									<strong className="capitalize">{formatKey(key)}:</strong>{" "}
 									{String(value)}
@@ -73,7 +59,7 @@ export default function ClassDetails({ ClassCode }: { ClassCode: string }) {
 					)}
 				</div>
 			</div>
-			<AddQuiz classCode={ClassCode}></AddQuiz>
+			<AddQuiz></AddQuiz>
 		</div>
 	);
 }

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "./context/UserContext";
 import { auth } from "@/firebase/clientApp";
 
 const Home: React.FC = () => {

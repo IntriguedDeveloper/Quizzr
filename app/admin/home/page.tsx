@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import findError from "@/public/findError.png";
 import ClassCard from "@/app/admin/_components/ClassCard";
-import { useUserContext } from "@/context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 import Dropdown from "./_components/Dropdown";
 
 type ClassDataObject = {

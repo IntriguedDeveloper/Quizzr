@@ -129,6 +129,7 @@ export default function AddQuiz() {
 					key={renderIndex}
 					questionBody={questionsArray[renderIndex]}
 					animationClass={animationClass}
+					noOfQuestions = {questionsArray.length - 1}
 				/>
 				<button
 					className="px-12 py-2 mt-4 bg-blue-600 rounded-md font-extrabold text-xl text-white hover:bg-blue-700 border-black outline-none border-2"

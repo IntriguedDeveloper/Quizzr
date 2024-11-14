@@ -8,6 +8,7 @@ export function QuestionCard({
 	previousQuestionTransition,
 	questionBody,
 	animationClass,
+	noOfQuestions,
 }: {
 	currentIndex: number;
 	updateQuestion: (
@@ -18,6 +19,7 @@ export function QuestionCard({
 	previousQuestionTransition: (currentIndex: number) => void;
 	questionBody: QuestionConstructType;
 	animationClass: string;
+	noOfQuestions: number;
 }) {
 	const [questionTitle, setQuestionTitle] = useState<string>("");
 	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(0);
@@ -83,7 +85,9 @@ export function QuestionCard({
 	}
 
 	return (
-		<div className={`flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 lg:rounded-lg  ${animationClass}`} >
+		<div
+			className={`flex flex-col p-5 lg:w-3/5 w-full h-full mt-2 justify-center items-center bg-indigo-200 lg:rounded-lg  ${animationClass}`}
+		>
 			<a className="mb-2 text-xl font-semibold text-slate-600">
 				Question Number {currentIndex + 1}
 			</a>
@@ -145,7 +149,7 @@ export function QuestionCard({
 					className="mr-2 ml-2 bg-slate-500 text-white p-2 rounded-lg hover:bg-slate-400 hover:text-black"
 					onClick={nextQuestionNavigate}
 				>
-					Next Question
+					{currentIndex === noOfQuestions ? "Add Question" : "Next Question"}
 				</button>
 			</div>
 		</div>

@@ -106,6 +106,7 @@ export default function AddQuiz() {
 				<ConfirmationModal
 					onClose={() => setShowConfirmationModal(false)}
 					noOfQuestions={questionsArray.length}
+					questionsArray={questionsArray}
 				/>
 			)}
 			<div className="lg:w-5/6 w-full bg-blue-300 lg:mt-2 lg:rounded-lg flex flex-col items-center justify-center p-2 mb-5 shadow-sm">

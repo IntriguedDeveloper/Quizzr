@@ -22,22 +22,43 @@ export default function ConfirmationModal({
 		fullMarks: 0,
 	});
 	const handleQuizCreation = async (e: React.MouseEvent<HTMLButtonElement>) => {
-		const batch = writeBatch(db);
-		const detailsRef = doc(
-			db,
-			`classrooms/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}`
-		);
-		batch.set(detailsRef, quizDetails);
-		for (let i = 0; i < questionsArray.length; i++) {
-			const questionDoc = questionsArray[i];
-			const questionsRef = doc(
+		try {
+			if (!classDetails.selectedSubject || !quizDetails.title) {
+				throw new Error("Subject or Quiz Title is missing.");
+			}
+
+			const batch = writeBatch(db);
+
+			const detailsRef = doc(
 				db,
-				`classrooms/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}/questions/${questionDoc.QuestionTitle}`
+				`classrooms/${classDetails.classCode}/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}`
 			);
-			batch.set(questionsRef, questionDoc);
+			batch.set(detailsRef, quizDetails);
+
+			for (let i = 0; i < questionsArray.length; i++) {
+				const questionDoc = questionsArray[i];
+
+				if (!questionDoc.QuestionTitle) {
+					throw new Error(`Question ${i + 1} is missing a title.`);
+				}
+
+				const questionsRef = doc(
+					collection(
+						db,
+						`classrooms/${classDetails.classCode}/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}/questions/`
+					)
+				);
+
+				batch.set(questionsRef, questionDoc);
+			}
+
+			await batch.commit();
+			
+		} catch (error: any) {
+			console.error("Error creating quiz:", error.message);
 		}
-		await batch.commit();
 	};
+
 	const timeSetter = (timeDurationString: string) => {
 		setQuizDetails((prev) => ({ ...prev, timeDuration: timeDurationString }));
 	};

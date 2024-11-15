@@ -3,82 +3,84 @@
 import { auth, db } from "@/firebase/clientApp";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
+
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type UserContextType = {
-  userID: string | null;
-  userEmail: string | null;
-  userName: string | null;
-  isAdmin: boolean | null;
-  isLoading: boolean;
+	userID: string | null;
+	userEmail: string | null;
+	userName: string | null;
+	isAdmin: boolean | null;
+	isLoading: boolean;
 };
 
 const UserContext = createContext<UserContextType>({
-  userID: null,
-  userEmail: null,
-  userName: null,
-  isAdmin: null,
-  isLoading: true,
+	userID: null,
+	userEmail: null,
+	userName: null,
+	isAdmin: null,
+	isLoading: true,
 });
 
 export function UserContextProvider({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<UserContextType>({
-    userID: null,
-    userEmail: null,
-    userName: null,
-    isAdmin: null,
-    isLoading: true,
-  });
+	const [user, setUser] = useState<UserContextType>({
+		userID: null,
+		userEmail: null,
+		userName: null,
+		isAdmin: null,
+		isLoading: true,
+	});
 
-  useEffect(() => {
-    console.log("context effect ran");
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let userID = user.uid;
-        let email = user.email;
-        let userName = "";
-        let isAdmin: boolean = false;   
-        const q = query(collection(db, "users"), where("email", "==", email));
-        const querySnapShot = await getDocs(q);
+	useEffect(() => {
+		console.log("context effect ran");
 
-        querySnapShot.forEach(async (doc) => {
-          userName = doc.data().userName;
-          isAdmin = doc.data().isAdmin;
-        });
-        setUser({
-          userEmail: email,
-          userName: userName,
-          userID: userID,
-          isAdmin: isAdmin,
-          isLoading: false,
-        });
-      } else {
-        setUser({
-          userID: null,
-          userEmail: null,
-          userName: null,
-          isAdmin: false,
-          isLoading: false,
-        });
-      }
-    });
+		const unsubscribe = onAuthStateChanged(auth, async (user) => {
+			if (user) {
+				let userID = user.uid;
+				let email = user.email;
+				let userName = "";
+				let isAdmin: boolean = false;
+				const q = query(collection(db, "users"), where("email", "==", email));
+				const querySnapShot = await getDocs(q);
 
-    return () => unsubscribe();
-  }, []);
+				querySnapShot.forEach(async (doc) => {
+					userName = doc.data().userName;
+					isAdmin = doc.data().isAdmin;
+				});
+				setUser({
+					userEmail: email,
+					userName: userName,
+					userID: userID,
+					isAdmin: isAdmin,
+					isLoading: false,
+				});
+			} else {
+				setUser({
+					userID: null,
+					userEmail: null,
+					userName: null,
+					isAdmin: false,
+					isLoading: false,
+				});
+			}
+		});
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+		return () => unsubscribe();
+	}, []);
+
+	return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }
 
 export function useUserContext() {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error(
-      "useTeacherContext must be used within a TeacherContextProvider"
-    );
-  }
-  return context;
+	const context = useContext(UserContext);
+	if (context === undefined) {
+		throw new Error(
+			"useTeacherContext must be used within a TeacherContextProvider"
+		);
+	}
+	return context;
 }

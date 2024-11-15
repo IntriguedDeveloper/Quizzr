@@ -9,6 +9,7 @@ export function QuestionCard({
 	questionBody,
 	animationClass,
 	noOfQuestions,
+	updateQuestions,
 }: {
 	currentIndex: number;
 	updateQuestion: (
@@ -20,9 +21,10 @@ export function QuestionCard({
 	questionBody: QuestionConstructType;
 	animationClass: string;
 	noOfQuestions: number;
+	updateQuestions: boolean;
 }) {
 	const [questionTitle, setQuestionTitle] = useState<string>("");
-	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(0);
+	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(questionBody.CorrectOptionIndex);
 	const [optionList, setOptionList] = useState<AnswerChoice[]>(
 		Array(4).fill({ choiceContent: "", choiceIndex: 0 })
 	);
@@ -31,10 +33,9 @@ export function QuestionCard({
 		setQuestionTitle(questionBody.QuestionTitle);
 		setCorrectOptionIndex(questionBody.CorrectOptionIndex);
 		setOptionList(questionBody.AnswerChoices);
-	}, [currentIndex]);
+	}, [currentIndex, updateQuestions]);
 
 	const saveQuestion = () => {
-		console.log(correctOptionIndex + "in save");
 		const finalQuestionConstruct: QuestionConstructType = {
 			QuestionTitle: questionTitle,
 			AnswerChoices: optionList,
@@ -126,10 +127,8 @@ export function QuestionCard({
 					name="correctIndex"
 					className="h-10 p-2 rounded-md w-32"
 					onChange={CorrectOptionIndexSetter}
+					defaultValue={correctOptionIndex === 0 ? 1 : correctOptionIndex}
 				>
-					<option value="" disabled selected hidden>
-						{correctOptionIndex === 0 ? 1 : correctOptionIndex}
-					</option>
 					{Array.from({ length: 4 }).map((_, index) => (
 						<option value={index + 1} key={index}>
 							{index + 1}

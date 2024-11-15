@@ -6,18 +6,17 @@ import ConfirmationModal from "./ConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useClassRoomContext } from "@/app/admin/context/ClassRoomContext";
-
-interface AddQuizProps {
-	classCode: string;
-}
+import * as mammoth from "mammoth";
 export type AnswerChoice = {
 	choiceIndex: number;
 	choiceContent: string;
 };
+
 export type QuestionConstructType = {
 	QuestionTitle: string;
 	AnswerChoices: AnswerChoice[];
 	CorrectOptionIndex: number;
+	QuestionIndex: number;
 };
 
 export default function AddQuiz() {
@@ -37,16 +36,139 @@ export default function AddQuiz() {
 				QuestionTitle: "",
 				AnswerChoices: initialChoices,
 				CorrectOptionIndex: 0,
+				QuestionIndex: 1,
 			},
 		]
 	);
 
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
 	const [renderIndex, setRenderIndex] = useState(0);
+	const [updateQuestions, setUpdateQuestions] = useState(false);
 	const [animationClass, setAnimationClass] = useState(
 		"animate-fadeInVertical"
 	);
+
+	const parseQuestions = async(content: string) => {
+		setUpdateQuestions(false);
+		try {
+			const questions: QuestionConstructType[] = [];
+			const sections = content.split(/(?=(\d+)\.\s*<--)/).filter(Boolean);
+			let QuestionIndex = 0;
+			for (const section of sections) {
+				console.log("New Question" , QuestionIndex)
+				// Extract question title
+				const titleMatch = section.match(/(\d+)\.\s*<--(.*?)-->/);
+				if (!titleMatch) continue;
+
+				const questionTitle = titleMatch[2].trim();
+				const options: AnswerChoice[] = [];
+
+				// Extract options
+				const optionsText = section.slice(titleMatch[0].length);
+				const optionMatches = [
+					...optionsText.matchAll(
+						/(\d+)\.\s*(.*?)(?=(?:\d+\.|C\d+|$))/gs
+					),
+				];
+
+				optionMatches.forEach((match) => {
+					const choiceIndex = parseInt(match[1]);
+					const choiceContent = match[2].trim();
+					if (choiceContent) {
+						options.push({ choiceIndex, choiceContent });
+					}
+				});
+
+				// Extract correct answer - Modified this part
+				const correctAnswerMatch = section.match(/(C)(\d+)/);
+				let correctOptionIndex = 0;
+
+				if (correctAnswerMatch) {
+					console.log(correctAnswerMatch[2]);
+					correctOptionIndex = Number(correctAnswerMatch[2]);
+				}
+
+				if (options.length > 0) {
+					questions.push({
+						QuestionTitle: questionTitle,
+						AnswerChoices: options,
+						CorrectOptionIndex: correctOptionIndex, // Now properly set
+						QuestionIndex: QuestionIndex + 1,
+					});
+				}
+				QuestionIndex++;
+			}
+
+			if (questions.length > 0) {
+				// Log for verification
+				console.log("Parsed questions:", JSON.stringify(questions, null, 2));
+
+				await setQuestionsArray(questions);
+				await setUpdateQuestions(true);
+				toast.success(`Loaded ${questions.length} questions successfully!`, {
+					position: "top-center",
+					autoClose: 3000,
+				});
+			} else {
+				toast.error("No valid questions found in the file!", {
+					position: "top-center",
+					autoClose: 3000,
+				});
+			}
+		} catch (error) {
+			console.error("Error parsing questions:", error);
+			toast.error("Error parsing the file. Please check the format!", {
+				position: "top-center",
+				autoClose: 3000,
+			});
+		}
+	};
+
+	const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
+		if (!file) return;
+
+		if (file.name.endsWith(".txt")) {
+			const reader = new FileReader();
+			reader.onload = () => {
+				const content = reader.result as string;
+				parseQuestions(content);
+			};
+			reader.readAsText(file);
+		} else if (file.name.endsWith(".docx")) {
+			const reader = new FileReader();
+			reader.onload = async () => {
+				try {
+					const content = await readDocxFile(reader.result as ArrayBuffer);
+					parseQuestions(content);
+				} catch (error) {
+					toast.error("Error reading DOCX file!", {
+						position: "top-center",
+						autoClose: 3000,
+					});
+				}
+			};
+			reader.readAsArrayBuffer(file);
+		} else {
+			toast.error("Please upload a .txt or .docx file!", {
+				position: "top-center",
+				autoClose: 3000,
+			});
+		}
+	};
+
+	const readDocxFile = (arrayBuffer: ArrayBuffer) => {
+		return new Promise<string>((resolve, reject) => {
+			mammoth
+				.extractRawText({ arrayBuffer })
+				.then((result) => {
+					resolve(result.value);
+				})
+				.catch((err) => {
+					reject(err);
+				});
+		});
+	};
 
 	const updateQuestion = (
 		QuestionBodyObject: QuestionConstructType,
@@ -54,7 +176,7 @@ export default function AddQuiz() {
 	): Promise<void> => {
 		return new Promise((resolve) => {
 			setQuestionsArray((prevArray) => {
-				const updatedArray = prevArray?.map((item, i) =>
+				const updatedArray = prevArray.map((item, i) =>
 					i === QuestionIndex ? { ...QuestionBodyObject } : item
 				);
 				resolve();
@@ -72,6 +194,7 @@ export default function AddQuiz() {
 						QuestionTitle: "",
 						AnswerChoices: initialChoices,
 						CorrectOptionIndex: 0,
+						QuestionIndex: renderIndex+1,
 					},
 				];
 			}
@@ -101,7 +224,7 @@ export default function AddQuiz() {
 
 	return (
 		<>
-			<ToastContainer /> {/* Include ToastContainer to render the toast */}
+			<ToastContainer />
 			{showConfirmationModal && (
 				<ConfirmationModal
 					onClose={() => setShowConfirmationModal(false)}
@@ -121,7 +244,19 @@ export default function AddQuiz() {
 						"Loading selected subject..."
 					)}
 				</div>
-
+				<label
+					className="w-full lg:w-3/5 rounded-lg font-bold h-20 bg-white text-blue-600 hover:bg-cyan-200 flex items-center justify-center text-lg cursor-pointer"
+					htmlFor="fileInput"
+				>
+					Upload a Text File
+				</label>
+				<input
+					type="file"
+					id="fileInput"
+					className="hidden"
+					onChange={handleFileUpload}
+					accept=".txt, .doc, .docx"
+				/>
 				<QuestionCard
 					updateQuestion={updateQuestion}
 					currentIndex={renderIndex}
@@ -130,7 +265,8 @@ export default function AddQuiz() {
 					key={renderIndex}
 					questionBody={questionsArray[renderIndex]}
 					animationClass={animationClass}
-					noOfQuestions = {questionsArray.length - 1}
+					noOfQuestions={questionsArray.length - 1}
+					updateQuestions={updateQuestions}
 				/>
 				<button
 					className="px-12 py-2 mt-4 bg-blue-600 rounded-md font-extrabold text-xl text-white hover:bg-blue-700 border-black outline-none border-2"

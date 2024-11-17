@@ -1,17 +1,11 @@
-import { ClassRoomContextProvider } from "@/app/admin/context/ClassRoomContext";
-import ClassDetails from "@/app/admin/home/manageClassroom/_components/ClassDetails";
-import Layout from "./layout";
+import ClassContent from "./ClassContent";
 
-export default function ManageClassRoom({
+export default async function ClassPage({
 	params,
 }: {
-	params: { classRoomCode: string };
+	params: Promise<{ classRoomCode: string }>;
 }) {
-	return (
-		<>
-			<ClassRoomContextProvider classRoomCode={params.classRoomCode}>
-				<ClassDetails/>
-			</ClassRoomContextProvider>
-		</>
-	);
+	const classCode = (await params).classRoomCode;
+
+	return <ClassContent classCode={classCode}></ClassContent>;
 }

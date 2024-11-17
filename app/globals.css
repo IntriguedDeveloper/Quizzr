@@ -82,55 +82,60 @@
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @keyframes checkmark {
-  0% {
-    stroke-dasharray: 0, 100;
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dasharray: 100, 100;
-    stroke-dashoffset: 0;
-  }
+	0% {
+		stroke-dasharray: 0, 100;
+		stroke-dashoffset: 100;
+	}
+	100% {
+		stroke-dasharray: 100, 100;
+		stroke-dashoffset: 0;
+	}
 }
 
 @keyframes checkmark-circle {
-  0% {
-    stroke-dasharray: 0, 157;
-    stroke-dashoffset: 157;
-  }
-  100% {
-    stroke-dasharray: 157, 157;
-    stroke-dashoffset: 0;
-  }
+	0% {
+		stroke-dasharray: 0, 157;
+		stroke-dashoffset: 157;
+	}
+	100% {
+		stroke-dasharray: 157, 157;
+		stroke-dashoffset: 0;
+	}
 }
 
 .animate-checkmark {
-  animation: checkmark 0.5s ease-out forwards 0.2s;
+	animation: checkmark 0.5s ease-out forwards 0.2s;
 }
 
 .animate-checkmark-circle {
-  animation: checkmark-circle 0.6s ease-out forwards;
+	animation: checkmark-circle 0.6s ease-out forwards;
 }
 
 .checkmark-container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background-color: #e6ffed; /* Light green background */
-  border-radius: 50%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 80px;
+	background-color: #e6ffed; /* Light green background */
+	border-radius: 50%;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.shadow-3d {
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }

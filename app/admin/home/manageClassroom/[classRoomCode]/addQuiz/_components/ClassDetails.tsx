@@ -8,7 +8,7 @@ import AddQuiz from "./AddQuiz";
 import {
 	ClassRoomContextType,
 	useClassRoomContext,
-} from "@/app/admin/context/ClassRoomContext";
+} from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
 
 export default function ClassDetails() {
 	const userData = useUserContext();

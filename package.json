@@ -9,7 +9,7 @@
     "start": "next start",
     "start-expose": "next start -H 192.168.1.8",
     "lint": "next lint",
-    "test": "jest --verbose",
+    "test": "jest --verbose --forceExit --detectOpenHandles",
     "test:watch": "jest --watch --verbose"
   },
   "dependencies": {

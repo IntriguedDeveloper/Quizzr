@@ -2,8 +2,8 @@ import { HiX } from "react-icons/hi";
 import React, { useState } from "react";
 import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
-import { useClassRoomContext } from "@/app/admin/context/ClassRoomContext";
-import { QuestionConstructType } from "./AddQuiz";
+import { useClassRoomContext } from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
+import { QuestionConstructType } from "../../_types/quizTypes";
 import { useRouter } from "next/navigation";
 
 export default function ConfirmationModal({

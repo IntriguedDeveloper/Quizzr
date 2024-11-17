@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { AnswerChoice, QuestionConstructType } from "./AddQuiz";
+import { AnswerChoice } from "../../_types/quizTypes";
+import { QuestionConstructType } from "../../_types/quizTypes";
 
 export function QuestionCard({
 	currentIndex,

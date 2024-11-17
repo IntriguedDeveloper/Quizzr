@@ -5,20 +5,9 @@ import { QuestionCard } from "./QuestionCard";
 import ConfirmationModal from "./ConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useClassRoomContext } from "@/app/admin/context/ClassRoomContext";
+import { useClassRoomContext } from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
 import * as mammoth from "mammoth";
-export type AnswerChoice = {
-	choiceIndex: number;
-	choiceContent: string;
-};
-
-export type QuestionConstructType = {
-	QuestionTitle: string;
-	AnswerChoices: AnswerChoice[];
-	CorrectOptionIndex: number;
-	QuestionIndex: number;
-};
-
+import { AnswerChoice, QuestionConstructType } from "../../_types/quizTypes";
 export default function AddQuiz() {
 	const TeacherDetails = useUserContext();
 	const classData = useClassRoomContext();

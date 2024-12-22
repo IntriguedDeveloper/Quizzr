@@ -1,21 +1,18 @@
 "use client";
 import { useUserContext } from "@/app/context/UserContext";
-import { db } from "@/firebase/clientApp";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import AddQuiz from "./AddQuiz";
-import {
-	ClassRoomContextType,
-	useClassRoomContext,
-} from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
+import { useClassDetails } from "../../_hooks/useClassDetails";
+import { useClassContext } from "../../context/ClassContext";
 
 export default function ClassDetails() {
 	const userData = useUserContext();
-	const classData = useClassRoomContext();
+	const classCode = useClassContext().classCode;
+	const classData = useClassDetails(classCode, userData).classRoomDetails;
 	const [classDetailsDropDownToggle, setClassDetailsDropDownToggle] =
 		useState(false);
-
+	console.log(classData);
 	const formatKey = (key: string) => {
 		return key.replace(/([a-z])([A-Z])/g, "$1 $2");
 	};

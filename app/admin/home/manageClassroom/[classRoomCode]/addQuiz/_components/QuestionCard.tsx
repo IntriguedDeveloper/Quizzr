@@ -25,7 +25,9 @@ export function QuestionCard({
 	updateQuestions: boolean;
 }) {
 	const [questionTitle, setQuestionTitle] = useState<string>("");
-	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(questionBody.CorrectOptionIndex);
+	const [correctOptionIndex, setCorrectOptionIndex] = useState<number>(
+		questionBody.CorrectOptionIndex
+	);
 	const [optionList, setOptionList] = useState<AnswerChoice[]>(
 		Array(4).fill({ choiceContent: "", choiceIndex: 0 })
 	);

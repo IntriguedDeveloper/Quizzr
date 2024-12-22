@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { ClassRoomContextType } from "../_utils/fetchClassDetails";
+import { ClassRoomContextType } from "./useClassDetails";
 import { fetchActiveQuizzes } from "../_utils/fetchActiveQuizzes";
 
 export function useQuizDetails(
@@ -11,7 +11,7 @@ export function useQuizDetails(
 			? [classCode, classDetails.selectedSubject]
 			: null,
 		([classCode, selectedSubject]) =>
-			fetchActiveQuizzes(classCode, selectedSubject)
+			classCode ? fetchActiveQuizzes(classCode, selectedSubject) : null
 	);
 	return quizObjectList;
 }

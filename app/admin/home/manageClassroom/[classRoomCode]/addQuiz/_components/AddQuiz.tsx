@@ -5,13 +5,14 @@ import { QuestionCard } from "./QuestionCard";
 import ConfirmationModal from "./ConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useClassRoomContext } from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
 import * as mammoth from "mammoth";
 import { AnswerChoice, QuestionConstructType } from "../../_types/quizTypes";
+import { useClassContext } from "../../context/ClassContext";
+import { useClassDetails } from "../../_hooks/useClassDetails";
 export default function AddQuiz() {
 	const TeacherDetails = useUserContext();
-	const classData = useClassRoomContext();
-
+	const classCode = useClassContext().classCode;
+	const classData = useClassDetails(classCode, TeacherDetails).classRoomDetails;
 	const teacherName = TeacherDetails?.userName;
 
 	const initialChoices = Array.from({ length: 4 }, (_, index) => ({
@@ -45,14 +46,14 @@ export default function AddQuiz() {
 			let QuestionIndex = 0;
 			for (const section of sections) {
 				console.log("New Question" , QuestionIndex)
-				// Extract question title
+				
 				const titleMatch = section.match(/(\d+)\.\s*<--(.*?)-->/);
 				if (!titleMatch) continue;
 
 				const questionTitle = titleMatch[2].trim();
 				const options: AnswerChoice[] = [];
 
-				// Extract options
+				
 				const optionsText = section.slice(titleMatch[0].length);
 				const optionMatches = [
 					...optionsText.matchAll(
@@ -68,7 +69,7 @@ export default function AddQuiz() {
 					}
 				});
 
-				// Extract correct answer - Modified this part
+				
 				const correctAnswerMatch = section.match(/(C)(\d+)/);
 				let correctOptionIndex = 0;
 
@@ -81,7 +82,7 @@ export default function AddQuiz() {
 					questions.push({
 						QuestionTitle: questionTitle,
 						AnswerChoices: options,
-						CorrectOptionIndex: correctOptionIndex, // Now properly set
+						CorrectOptionIndex: correctOptionIndex, 
 						QuestionIndex: QuestionIndex + 1,
 					});
 				}
@@ -89,7 +90,7 @@ export default function AddQuiz() {
 			}
 
 			if (questions.length > 0) {
-				// Log for verification
+				
 				console.log("Parsed questions:", JSON.stringify(questions, null, 2));
 
 				await setQuestionsArray(questions);

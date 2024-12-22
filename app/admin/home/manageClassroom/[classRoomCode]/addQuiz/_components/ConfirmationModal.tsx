@@ -2,9 +2,12 @@ import { HiX } from "react-icons/hi";
 import React, { useState } from "react";
 import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
-import { useClassRoomContext } from "@/app/admin/home/manageClassroom/[classRoomCode]/_utils/fetchClassDetails";
+
 import { QuestionConstructType } from "../../_types/quizTypes";
 import { useRouter } from "next/navigation";
+import { useClassContext } from "../../context/ClassContext";
+import { useClassDetails } from "../../_hooks/useClassDetails";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function ConfirmationModal({
   onClose,
@@ -16,7 +19,9 @@ export default function ConfirmationModal({
   questionsArray: QuestionConstructType[];
 }) {
   const router = useRouter();
-  const classDetails = useClassRoomContext();
+  const TeacherDetails = useUserContext();
+  const classCode = useClassContext().classCode;
+	const classDetails = useClassDetails(classCode, TeacherDetails).classRoomDetails;
   const [quizDetails, setQuizDetails] = useState({
     title: "",
     timeDuration: "",
@@ -57,7 +62,7 @@ export default function ConfirmationModal({
         db,
         `classrooms/${classDetails.classCode}/subjects/${classDetails.selectedSubject}/quizzes/${quizDetails.title}`
       );
-      batch.set(detailsRef, quizDetails);
+      batch.set(detailsRef, {...quizDetails, noOfQuestions: noOfQuestions});
 
       for (let i = 0; i < questionsArray.length; i++) {
         const questionDoc = questionsArray[i];

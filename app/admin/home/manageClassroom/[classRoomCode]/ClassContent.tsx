@@ -12,12 +12,12 @@ import { useQuizDetails } from "./_hooks/useQuizDetails";
 import { fetchActiveQuizzes } from "./_utils/fetchActiveQuizzes";
 import { useRouter } from "next/navigation";
 import EditQuiz from "./editQuiz/EditQuiz";
-
+import { FaFrown } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 export default function ClassContent({ classCode }: { classCode: string }) {
 	const router = useRouter();
-	const [classDetails, setClassDetails] = useState<ClassRoomContextType | null>( 
-		null
-	);
+	const [classDetails, setClassDetails] =
+				useState<ClassRoomContextType | null>(null);
 	const [quizObjectList, setQuizObjectList] = useState<any[]>([]);
 	const teacherDetails = useUserContext();
 	const classDetailsResponse = useClassDetails(classCode, teacherDetails);
@@ -39,11 +39,10 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 
 	async function fetchDetails() {
 		if (classDetails?.selectedSubject) {
-			const data = await fetchActiveQuizzes(
+			const response = await fetchActiveQuizzes(
 				classCode,
 				classDetails.selectedSubject
 			);
-			setQuizObjectList(data);
 		}
 	}
 
@@ -52,23 +51,17 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 		setQuizTitle(title);
 	}
 
-	if (!classDetails || quizObjectList.length <= 0) {
 		return (
-			<div className="w-full lg:w-5/6 bg-white h-[95%] mt-2 flex flex-col items-center justify-start p-2 rounded-lg shadow-3d border-gray-400 border-2 m-2">
-				<Loading />
-			</div>
-		);
-	}
-
-	return (
-		<div className="w-full lg:w-5/6 min-h-max bg-white mt-2 flex flex-col items-center justify-start p-2 rounded-lg shadow-3d border-gray-400 border-2 m-2">
+		<div className="flex justify-start items-center flex-col w-full h-full">
+				<Toaster></Toaster>
 			{/* Render the EditQuiz component if active */}
 			{renderEditComponent && (
 				<EditQuiz
 					quizTitle={quizTitle}
 					onClose={() => setRenderEditComponent(false)}
 					selectedSubject={
-						classDetailsResponse.classRoomDetails.selectedSubject || ""
+						classDetailsResponse.classRoomDetails.selectedSubject ||
+						""
 					}
 					teacherDetails={teacherDetails}
 					classCode={classCode}
@@ -89,7 +82,7 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 							}}
 						>
 							Add Quiz
-						</button>
+						</button>	
 					</div>
 					<div className="mt-2 w-full lg:p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
 						{quizObjectList.map((quiz, index) => (

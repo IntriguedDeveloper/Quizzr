@@ -21,10 +21,10 @@ const Home: React.FC = () => {
           if (isAdmin) {
             router.push(`/admin/home`);
           } else {
-            router.push("/admin/auth/signup");
+            router.push("/home");
           }
         } else {
-          router.push("/auth/login");
+          router.push("/auth");
         }
       }
     }

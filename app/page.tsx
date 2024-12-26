@@ -4,21 +4,20 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { useUserContext } from "./context/UserContext";
-import { auth } from "@/firebase/clientApp";
 
 const Home: React.FC = () => {
- 
-  
   const router = useRouter();
   const userData = useUserContext();
+
   useEffect(() => {
-    async function getUserData() {
-      const { userName, isAdmin, isLoading } = await userData;
-      console.log("User Data:", userData);
-      if (!isLoading) {
-        if (userName) {
+    const getUserData = async () => {
+      if (!userData.isLoading) {
+        console.log("User Data:", userData);
+        
+        if (userData.userEmail) {
           console.log("This is user data: " + userData.userEmail);
-          if (isAdmin) {
+
+          if (userData.isAdmin) {
             router.push(`/admin/home`);
           } else {
             router.push("/home");
@@ -27,9 +26,10 @@ const Home: React.FC = () => {
           router.push("/auth");
         }
       }
-    }
+    };
+
     getUserData();
-  }, [router, userData]);
+  }, [userData, router]);
 
   return (
     <div className={styles.container}>

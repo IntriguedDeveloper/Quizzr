@@ -1,10 +1,11 @@
 "use client";
-import { auth } from "@/firebase/clientApp";
+import { auth, db } from "@/firebase/clientApp";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	updateProfile,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -18,55 +19,56 @@ export default function Auth() {
 	const router = useRouter();
 	useEffect(() => {
 		if (isLoggedIn) {
-			router.push("/home")
+			router.push("/home");
 		}
 	}, [isLoggedIn]);
 	const handleLogin = async () => {
-		await signInWithEmailAndPassword(auth, email, password).then(
-			(response) => {
+		await signInWithEmailAndPassword(auth, email, password)
+			.then((response) => {
 				console.log(response);
 				setAuthMsg("Logged In");
 				setIsLoggedIn(true);
-			}
-		).catch((error) => {
-			switch (error.code) {
-				case "auth/invalid-email":
-					setAuthMsg("Invalid Email");
-					break;
-				case "auth/user-not-found":
-					setAuthMsg("User Not Found");
-					break;
-				case "auth/wrong-password":
-					setAuthMsg("Wrong Password");
-					break;
-				default:
-					setAuthMsg("Something went wrong");
-			}
-		});
+			})
+			.catch((error) => {
+				switch (error.code) {
+					case "auth/invalid-email":
+						setAuthMsg("Invalid Email");
+						break;
+					case "auth/user-not-found":
+						setAuthMsg("User Not Found");
+						break;
+					case "auth/wrong-password":
+						setAuthMsg("Wrong Password");
+						break;
+					default:
+						setAuthMsg("Something went wrong");
+				}
+			});
 	};
 	const handleSignUp = async () => {
-		await createUserWithEmailAndPassword(auth, email, password).then(
-			async (response) => {
+		await createUserWithEmailAndPassword(auth, email, password)
+			.then(async (response) => {
 				console.log(response);
-				await updateProfile(response.user,{displayName:userName});
+				await updateProfile(response.user, { displayName: userName });
+				await createStudentDoc(response.user.uid, userName, email);
 				setAuthMsg("Account Created");
 				setIsLoggedIn(true);
-			}
-		).catch((error) => {
-			switch (error.code) {
-				case "auth/email-already-in-use":
-					setAuthMsg("Email already in use");
-					break;
-				case "auth/invalid-email":
-					setAuthMsg("Invalid Email");
-					break;
-				case "auth/weak-password":
-					setAuthMsg("Weak Password");
-					break;
-				default:
-					setAuthMsg("Something went wrong");
-			}
-		});
+			})
+			.catch((error) => {
+				switch (error.code) {
+					case "auth/email-already-in-use":
+						setAuthMsg("Email already in use");
+						break;
+					case "auth/invalid-email":
+						setAuthMsg("Invalid Email");
+						break;
+					case "auth/weak-password":
+						setAuthMsg("Weak Password");
+						break;
+					default:
+						setAuthMsg("Something went wrong");
+				}
+			});
 	};
 
 	return (
@@ -115,4 +117,16 @@ export default function Auth() {
 			</div>
 		</>
 	);
+}
+async function createStudentDoc(
+	userID: string,
+	userName: string,
+	email: string
+) {
+	const docRef = doc(db, "students", userID);
+	await setDoc(docRef, {
+		userName: userName,
+		email: email,
+		joinedClassroom: null,
+	});
 }

@@ -17,7 +17,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function ClassContent({ classCode }: { classCode: string }) {
 	const router = useRouter();
 	const [classDetails, setClassDetails] =
-				useState<ClassRoomContextType | null>(null);
+		useState<ClassRoomContextType | null>(null);
 	const [quizObjectList, setQuizObjectList] = useState<any[]>([]);
 	const teacherDetails = useUserContext();
 	const classDetailsResponse = useClassDetails(classCode, teacherDetails);
@@ -51,9 +51,9 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 		setQuizTitle(title);
 	}
 
-		return (
+	return (
 		<div className="flex justify-start items-center flex-col w-full h-full">
-				<Toaster></Toaster>
+			<Toaster></Toaster>
 			{/* Render the EditQuiz component if active */}
 			{renderEditComponent && (
 				<EditQuiz
@@ -82,7 +82,7 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 							}}
 						>
 							Add Quiz
-						</button>	
+						</button>
 					</div>
 					<div className="mt-2 w-full lg:p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
 						{quizObjectList.map((quiz, index) => (

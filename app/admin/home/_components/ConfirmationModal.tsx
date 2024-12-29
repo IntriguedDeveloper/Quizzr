@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+//TODO: Fix time duration picker component
 type ConfirmationModalType = {
   handleAccountDeletionConfirmation: (password: string) => void;
   toggleModalDisplay: () => void;

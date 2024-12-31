@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import EditQuiz from "./editQuiz/EditQuiz";
 import { FaFrown } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import { QuizDetailsType } from "./_types/quizDetails";
 export default function ClassContent({ classCode }: { classCode: string }) {
 	const router = useRouter();
 	const [classDetails, setClassDetails] =
@@ -21,7 +22,7 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 	const [quizObjectList, setQuizObjectList] = useState<any[]>([]);
 	const teacherDetails = useUserContext();
 	const classDetailsResponse = useClassDetails(classCode, teacherDetails);
-	const initialQuizList = useQuizDetails(classCode, classDetails);
+	const {success, error, quizzes, isLoading, isError} = useQuizDetails(classCode, classDetails);
 	const [renderEditComponent, setRenderEditComponent] = useState(false);
 	const [quizTitle, setQuizTitle] = useState<string>("");
 
@@ -32,17 +33,14 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 	}, [classDetailsResponse]);
 
 	useEffect(() => {
-		if (initialQuizList) {
-			setQuizObjectList(initialQuizList);
+		if (quizzes) {
+			setQuizObjectList(quizzes);
 		}
-	}, [initialQuizList]);
+	}, [quizzes]);
 
-	async function fetchDetails() {
+	async function fetchDetails(quiz: QuizDetailsType) {
 		if (classDetails?.selectedSubject) {
-			const response = await fetchActiveQuizzes(
-				classCode,
-				classDetails.selectedSubject
-			);
+			setQuizObjectList((prev) => [...prev.filter((q) => q.title !== quiz.title)]);
 		}
 	}
 

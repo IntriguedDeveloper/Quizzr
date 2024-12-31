@@ -1,20 +1,28 @@
 import { QuestionConstructType } from "../_types/quizTypes";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
-import { QuizDetails, QuizDetailsType } from "../_types/quizDetails";
+import { QuizDetailsType } from "../_types/quizDetails";
+
+export type FetchActiveQuizzesResult = {
+  success: boolean;
+  data?: QuizDetailsType[];
+  error?: string;
+};
 
 export const fetchActiveQuizzes = async (
   classCode: string,
   selectedSubject: string
-): Promise<QuizDetailsType[]> => {
+): Promise<FetchActiveQuizzesResult> => {
   if (!classCode || !selectedSubject) {
-    throw new Error(
-      "Invalid arguments: classCode and selectedSubject are required."
-    );
+    return {
+      success: false,
+      error: "Invalid arguments: classCode and selectedSubject are required.",
+    };
   }
 
+  const quizObjectList: QuizDetailsType[] = [];
+
   try {
-    const quizObjectList: QuizDetailsType[] = [];
     const q = query(
       collection(
         db,
@@ -23,18 +31,28 @@ export const fetchActiveQuizzes = async (
     );
 
     const quizSnap = await getDocs(q);
+
     if (!quizSnap.empty) {
       quizSnap.forEach((doc) => {
         const data = doc.data() as QuizDetailsType;
         quizObjectList.push(data);
       });
-    } else {
-      throw new Error("No quizzes created.");
-    }
 
-    return quizObjectList;
+      return {
+        success: true,
+        data: quizObjectList,
+      };
+    } else {
+      return {
+        success: false,
+        error: "No quizzes created.",
+      };
+    }
   } catch (error) {
     console.error("Error fetching quizzes:", error);
-    throw new Error("Failed to fetch quizzes. Please try again later.");
+    return {
+      success: false,
+      error: "Failed to fetch quizzes. Please try again later.",
+    };
   }
 };

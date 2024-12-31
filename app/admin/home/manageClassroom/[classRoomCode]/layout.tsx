@@ -2,16 +2,16 @@
 
 import { ClassContextProvider } from "./context/ClassContext";
 
-export default function ClassLayout({
+export default async function ClassLayout({
 	children,
 	params,
 }: {
 	children: React.ReactNode;
 	params: { classRoomCode: string };
 }) {
-	const classCode = params.classRoomCode;
+	const {classRoomCode} = await params;
 
 	return (
-		<ClassContextProvider classCode={classCode}>{children}</ClassContextProvider>
+		<ClassContextProvider classCode={classRoomCode}>{children}</ClassContextProvider>
 	);
 }

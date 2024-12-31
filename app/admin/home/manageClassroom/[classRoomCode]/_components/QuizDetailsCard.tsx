@@ -17,7 +17,7 @@ export default function QuizDetailsCard({
 	editComponentRenderer,
 }: {
 	quiz: QuizDetailsType;
-	fetchDetails: () => void;
+	fetchDetails: (quiz: QuizDetailsType) => void;
 	editComponentRenderer: Function;
 }) {
 	const classCode = useClassContext();
@@ -37,7 +37,7 @@ export default function QuizDetailsCard({
 	async function quizDeleteHandler(e: any) {
 		const docPath = `classrooms/${classCode.classCode}/subjects/${classDetails.classRoomDetails.selectedSubject}/quizzes/${quiz.title}`;
 		await deleteDocumentAndSubcollections(docPath);
-		fetchDetails();
+		fetchDetails(quiz);
 	}
 
 	async function handleEditHover(e: any) {

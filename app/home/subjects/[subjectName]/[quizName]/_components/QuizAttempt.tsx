@@ -15,7 +15,7 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
 import { useUserContext } from "@/app/context/UserContext";
 import { useRouter } from "next/navigation";
-import { calculateResults } from "../analyseResults/handler";
+import { calculateResults } from "../analyseResults/utils";
 
 export type QuizAttemptReturnType = {
 	selectedQuizQuestions: QuestionConstructType[];

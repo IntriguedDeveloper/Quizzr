@@ -30,7 +30,7 @@ export default function ClassContent({ classCode }: { classCode: string }) {
 		if (classDetailsResponse) {
 			setClassDetails(classDetailsResponse.classRoomDetails);
 		}
-	}, [classDetailsResponse]);
+	}, [classDetailsResponse.classRoomDetails]);
 
 	useEffect(() => {
 		if (quizzes) {

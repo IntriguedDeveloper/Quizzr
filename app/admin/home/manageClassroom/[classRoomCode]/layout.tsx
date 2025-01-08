@@ -7,9 +7,9 @@ export default async function ClassLayout({
 	params,
 }: {
 	children: React.ReactNode;
-	params: { classRoomCode: string };
+	params: Promise<{ classRoomCode: string }>;
 }) {
-	const {classRoomCode} = await params;
+	const classRoomCode = (await params).classRoomCode;
 
 	return (
 		<ClassContextProvider classCode={classRoomCode}>{children}</ClassContextProvider>

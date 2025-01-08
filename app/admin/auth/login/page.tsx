@@ -31,7 +31,9 @@ const Login: React.FC = () => {
 			formData.append("adminPassword", adminPassword);
 
 			try {
-				const adminCheckResponse = await AdminAuthorizationLogin(formData);
+				const adminCheckResponse = await AdminAuthorizationLogin(
+					formData
+				);
 
 				if (adminCheckResponse) {
 					const userCredential = await signInWithEmailAndPassword(
@@ -51,6 +53,20 @@ const Login: React.FC = () => {
 						console.log(doc.data().userName);
 						userName = doc.data().userName;
 					});
+					const token = await userCredential.user.getIdToken();
+
+					// Store token in an httpOnly cookie via API route
+					const response = await fetch("/api/auth/session", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ token }),
+					});
+
+					if (!response.ok) {
+						throw new Error("Failed to create session");
+					}
 
 					await router.push(`/admin/home`);
 					setIsLoading(false);
@@ -77,7 +93,8 @@ const Login: React.FC = () => {
 					}
 				} else {
 					setErrorMessage(
-						error.message || "An unknown error occurred during authorization."
+						error.message ||
+							"An unknown error occurred during authorization."
 					);
 				}
 			}
@@ -91,7 +108,9 @@ const Login: React.FC = () => {
 	return (
 		<Layout>
 			<h2 className="text-xl font-bold mb-4">Login as Teacher</h2>
-			{errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
+			{errorMessage && (
+				<p className="text-red-500 mb-4">{errorMessage}</p>
+			)}
 			<form onSubmit={handleLogin} className="w-full">
 				<input
 					type="email"

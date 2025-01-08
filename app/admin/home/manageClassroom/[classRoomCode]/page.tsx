@@ -10,7 +10,3 @@ export default async function ClassPage({
 	return <ClassContent classCode={classCode}></ClassContent>;
 }
 
-export const getClassCode = async (params: { classRoomCode: string }) => {
-	const classRoomCode = await params.classRoomCode;
-	return classRoomCode;
-};

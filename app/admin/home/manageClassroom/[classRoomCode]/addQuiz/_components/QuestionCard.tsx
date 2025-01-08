@@ -43,6 +43,7 @@ export function QuestionCard({
 			QuestionTitle: questionTitle,
 			AnswerChoices: optionList,
 			CorrectOptionIndex: correctOptionIndex,
+			QuestionIndex: currentIndex,
 		};
 		updateQuestion(finalQuestionConstruct, currentIndex);
 	};

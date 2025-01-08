@@ -68,6 +68,7 @@ const Login: React.FC = () => {
 						throw new Error("Failed to create session");
 					}
 
+
 					await router.push(`/admin/home`);
 					setIsLoading(false);
 				}

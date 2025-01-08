@@ -47,13 +47,13 @@ export function UserContextProvider({
 				const q = query(collection(db, "users"), where("email", "==", email));
 				const querySnapShot = await getDocs(q);
 
-				querySnapShot.forEach(async (doc) => {
+				await querySnapShot.forEach(async (doc) => {
 					userName = doc.data().userName;
 					isAdmin = doc.data().isAdmin;
 				});
 				setUser({
 					userEmail: email,
-					userName: userName,
+					userName: userName || user.displayName,
 					userID: userID,
 					isAdmin: isAdmin,
 					isLoading: false,

@@ -123,7 +123,7 @@ async function createStudentDoc(
 	userName: string,
 	email: string
 ) {
-	const docRef = doc(db, "students", userID);
+	const docRef = doc(db, "users", userID);
 	await setDoc(docRef, {
 		userName: userName,
 		email: email,

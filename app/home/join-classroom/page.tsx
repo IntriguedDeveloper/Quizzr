@@ -34,7 +34,6 @@ const JoinClassroomPage: React.FC = () => {
 			if (docSnapshot.exists()) {
 				alert("You have already joined this classroom");
 			} else {
-				await setDoc(docRef, { ...userData });
 				await setDoc(doc(db, "students", userData.userID), {
 					joinedClassroom: classCode,
 				});
@@ -43,7 +42,7 @@ const JoinClassroomPage: React.FC = () => {
 		}
 	}
 	return (
-		<div className="w-max h-max flex flex-col justify-center items-center border-2 border-blue-500 rounded-lg p-10">
+		<div className="w-max h-max flex flex-col justify-center items-center border-2 border-blue-500 rounded-lg p-10 mt-10">
 			<h1 className="text-2xl m-4 text-slate-500 font-extrabold">
 				Join Classroom
 			</h1>

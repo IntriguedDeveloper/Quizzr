@@ -10,16 +10,17 @@ export default function SubjectCard({
 	const router = useRouter();
 	return (
 		<div
-			className="w-max h-max flex flex-col rounded-lg border-2 border-blue-500 m-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] hover:scale-105 ransition-transform duration-100 cursor-pointer"
-			onClick={() => {router.push('/home/subjects/'+subjectName)}}
+			className="flex flex-col items-center justify-between rounded-xl border border-gray-300 m-5 shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-200 cursor-pointer overflow-hidden"
+			onClick={() => {
+				router.push('/home/subjects/' + subjectName);
+			}}
 		>
-			<div>
-				<h1 className="text-xl p-2">{subjectName}</h1>
+			<div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 w-full h-2"></div>
+			<div className="p-6 flex-1 flex flex-col items-center justify-center">
+				<h1 className="text-2xl font-bold text-gray-800 text-center">{subjectName}</h1>
 			</div>
-			<div className="bg-blue-500 text-white p-5">
-				<h1 className="font-bold ">
-					Available Quizzes : {availableQuizzes}
-				</h1>
+			<div className="bg-gray-200 w-full py-4 flex justify-center items-center">
+				<h1 className="text-lg font-semibold text-gray-700">Available Quizzes: {availableQuizzes}</h1>
 			</div>
 		</div>
 	);

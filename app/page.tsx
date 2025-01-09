@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { useUserContext } from "./context/UserContext";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.loader}></span>
+      <LoadingSpinner></LoadingSpinner>
     </div>
   );
 };

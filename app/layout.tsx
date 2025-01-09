@@ -6,7 +6,8 @@ export const metadata: Metadata = {
 };
 import "./globals.css";
 import { UserContextProvider } from "./context/UserContext";
-
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function RootLayout({
 	children,
@@ -17,7 +18,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body className="h-screen w-screen">
 				<UserContextProvider>
-					{children}
+					<Suspense fallback={<Loading></Loading>}>
+						{children}
+					</Suspense>
 				</UserContextProvider>
 			</body>
 		</html>

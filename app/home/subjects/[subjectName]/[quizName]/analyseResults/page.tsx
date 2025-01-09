@@ -3,7 +3,7 @@ import { useUserContext } from "@/app/context/UserContext";
 import { useClassCode } from "@/app/home/hooks/useClassCode";
 import { db } from "@/firebase/clientApp";
 import { collection, getDocs } from "firebase/firestore";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useSWR from "swr";
 import { ResultCalculatorReturnType } from "./utils";
 import { Pie } from "react-chartjs-2";
@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AnalyseResults() {
+	const router = useRouter();
 	const params = useParams<{ quizName: string; subjectName: string }>();
 	const userDetails = useUserContext();
 	const classCode = useClassCode(userDetails.userID).data;
@@ -176,7 +177,7 @@ export default function AnalyseResults() {
 						{data.displayTimeTaken}
 					</p>
 				</div>
-				<button className="bg-blue-600 text-white font-semibold rounded-lg p-4 mt-4 mb-4 w-full">
+				<button className="bg-blue-600 text-white font-semibold rounded-lg p-4 mt-4 mb-4 w-full" onClick={()=>{router.back()}}>
 					Attempt Another Quiz
 				</button>
 			</div>

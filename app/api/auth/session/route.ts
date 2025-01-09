@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const { token } = await request.json();
-    
+    const cookieStore = await cookies()
     // Set session cookie
-    cookies().set('__Session', token, {
+    cookieStore.set('__Session', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

@@ -138,7 +138,7 @@ export default function QuizAttempt({
 					),
 					quizResults,
 				);
-				router.push("./analyseResults");
+				router.push(`./${quizDetails.title}/analyseResults`);
 			}
 		} catch (error) {
 			console.error(error);

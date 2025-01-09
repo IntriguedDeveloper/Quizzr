@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Quizzr",
-	description: "Quizzr Admin",
+	description: "Minimalist Quiz Website",
 };
 import "./globals.css";
 import { UserContextProvider } from "./context/UserContext";

@@ -16,6 +16,7 @@ export default function AnalyseResults() {
 	const params = useParams<{ quizName: string; subjectName: string }>();
 	const userDetails = useUserContext();
 	const classCode = useClassCode(userDetails.userID).data;
+
 	const { data, error } = useSWR<ResultCalculatorReturnType | null>(
 		params.quizName && userDetails.userID && classCode
 			? params.quizName

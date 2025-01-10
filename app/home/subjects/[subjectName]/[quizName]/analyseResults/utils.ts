@@ -17,7 +17,8 @@ export type ResultCalculatorReturnType = {
 export async function calculateResults(
 	selectedQuizQuestions: QuestionConstructType[],
 	timeTaken: TimeStringParserReturnObjectType,
-	fullMarks: number
+	fullMarks: number, 
+	totalTime: TimeStringParserReturnObjectType,
 ): Promise<ResultCalculatorReturnType> {
 	let marksReceived = 0;
 	let noOfQuestionsCorrect = 0;
@@ -37,6 +38,12 @@ export async function calculateResults(
 		}
 	}
 	const noOfQuestionsIncorrect = totalNoOfQuestions - noOfQuestionsCorrect;
+	let timeTakenToSeconds = timeObjectToSeconds(totalTime) - timeObjectToSeconds(timeTaken);
+
+	console.info(timeTakenToSeconds)
+	let newTimeTaken = convertSecondsToTimeObject(timeTakenToSeconds);
+	console.log(timeTaken);
+	console.log(newTimeTaken);
 	const resultObject: ResultCalculatorReturnType = {
 		marksReceived: marksReceived,
 		fullMarks: fullMarks,
@@ -44,7 +51,30 @@ export async function calculateResults(
 		noOfQuestionsCorrect: noOfQuestionsCorrect,
 		noOfQuestionsIncorrect: noOfQuestionsIncorrect,
 		totalNoOfQuestions: totalNoOfQuestions,
-		displayTimeTaken: TimeObjectSlicer(timeTaken),
+		displayTimeTaken: TimeObjectSlicer(newTimeTaken),
 	};
 	return resultObject;
+}
+function timeObjectToSeconds(
+	timeTaken: TimeStringParserReturnObjectType
+): number {
+	if (timeTaken) {
+		let seconds = 0;
+		seconds =
+			timeTaken.hours * 60 * 60 +
+			timeTaken.minutes * 60 +
+			timeTaken.seconds;
+		return seconds;
+	}
+	return 0;
+}
+
+function convertSecondsToTimeObject(
+	seconds: number
+): TimeStringParserReturnObjectType {
+	const hours = Math.floor(seconds / 3600);
+	const minutes = Math.floor((seconds % 3600) / 60);
+	const remainingSeconds = seconds % 60;
+
+	return { hours, minutes, seconds: remainingSeconds };
 }

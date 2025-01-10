@@ -129,14 +129,15 @@ export default function QuizAttempt({
 				const quizResults = await calculateResults(
 					selectedQuizQuestions,
 					quizCountDown,
-					quizDetails.fullMarks
+					quizDetails.fullMarks,
+					TimeStringParser(quizDetails.timeDuration)
 				);
 				await addDoc(
 					collection(
 						db,
 						`classrooms/${classCode}/students/${userDetails.userID}/attempted-quizzes/${quizDetails.title}/quiz-result`
 					),
-					quizResults,
+					quizResults
 				);
 				router.push(`./${quizDetails.title}/analyseResults`);
 			}
@@ -175,11 +176,8 @@ export default function QuizAttempt({
 					<h1 className="text-center text-3xl font-semibold text-blue-600 mb-4">
 						{quizDetails.title}
 					</h1>
-					<div className="absolute right-2 top-2 flex items-center justify-center bg-gray-100 rounded-lg p-2 text-sm lg:text-lg md:text-lg">
-						{`${quizCountDown.hours} hrs ${quizCountDown.minutes} mins ${quizCountDown.seconds} sec`}
-					</div>
 
-					<div className="w-full h-2 bg-gray-200 mt-4 mb-4  rounded-lg">
+					<div className="w-full h-2 bg-gray-200 mt-4 rounded-lg">
 						<div
 							className={`h-full ${
 								calculateProgress() < 30
@@ -188,6 +186,11 @@ export default function QuizAttempt({
 							} rounded-lg`}
 							style={{ width: `${calculateProgress()}%` }}
 						></div>
+					</div>
+					<div className="w-full flex justify-center">
+						<div className="w-full m-2 flex items-center justify-center bg-gray-100 rounded-lg p-2 text-sm lg:text-lg md:text-lg">
+							{`${quizCountDown.hours} hrs ${quizCountDown.minutes} mins ${quizCountDown.seconds} sec`}
+						</div>
 					</div>
 
 					<div className="border border-blue-400 rounded-md pr-4 pl-4 pt-2 pb-2 relative">

@@ -2,7 +2,7 @@
 
 import { app, auth, db } from "@/firebase/clientApp";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import SubjectCard from "./_components/SubjectCard";

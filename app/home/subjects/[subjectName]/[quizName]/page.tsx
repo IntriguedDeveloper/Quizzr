@@ -1,13 +1,8 @@
 "use client";
-import { QuestionConstructType } from "@/app/admin/home/manageClassroom/[classRoomCode]/_types/quizTypes";
-import { UserContextType, useUserContext } from "@/app/context/UserContext";
-import { db } from "@/firebase/clientApp";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { useUserContext } from "@/app/context/UserContext";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import useSWR from "swr";
 import QuizDetails from "./_components/QuizDetails";
-import { useQuizDetails } from "@/app/admin/home/manageClassroom/[classRoomCode]/_hooks/useQuizDetails";
 import { useQuizQuestions } from "@/app/home/hooks/useQuizQuestions";
 import QuizAttempt from "./_components/QuizAttempt";
 export type QuizDetailsType = {

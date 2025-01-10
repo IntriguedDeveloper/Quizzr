@@ -2,7 +2,8 @@
 import { useUserContext } from "@/app/context/UserContext";
 import { db } from "@/firebase/clientApp";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
-import { useParams, useRouter } from "next/navigation";
+import { useParams} from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 

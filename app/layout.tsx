@@ -8,6 +8,7 @@ import "./globals.css";
 import { UserContextProvider } from "./context/UserContext";
 import { Suspense } from "react";
 import Loading from "./loading";
+import NextTopLoader from "nextjs-toploader";
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -16,6 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className="h-screen w-screen">
+				<NextTopLoader showSpinner={true}></NextTopLoader>
 				<UserContextProvider>
 					<Suspense fallback={<Loading></Loading>}>
 						{children}

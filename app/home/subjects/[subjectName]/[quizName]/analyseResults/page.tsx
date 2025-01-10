@@ -3,7 +3,8 @@ import { useUserContext } from "@/app/context/UserContext";
 import { useClassCode } from "@/app/home/hooks/useClassCode";
 import { db } from "@/firebase/clientApp";
 import { collection, getDocs } from "firebase/firestore";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import useSWR from "swr";
 import { ResultCalculatorReturnType } from "./utils";
 import { Pie } from "react-chartjs-2";
@@ -177,7 +178,12 @@ export default function AnalyseResults() {
 						{data.displayTimeTaken}
 					</p>
 				</div>
-				<button className="bg-blue-600 text-white font-semibold rounded-lg p-4 mt-4 mb-4 w-full" onClick={()=>{router.back()}}>
+				<button
+					className="bg-blue-600 text-white font-semibold rounded-lg p-4 mt-4 mb-4 w-full"
+					onClick={() => {
+						router.back();
+					}}
+				>
 					Attempt Another Quiz
 				</button>
 			</div>

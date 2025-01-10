@@ -8,7 +8,6 @@ import "./globals.css";
 import { UserContextProvider } from "./context/UserContext";
 import { Suspense } from "react";
 import Loading from "./loading";
-
 export default function RootLayout({
 	children,
 }: Readonly<{

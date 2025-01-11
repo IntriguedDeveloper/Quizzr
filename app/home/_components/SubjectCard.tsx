@@ -1,4 +1,5 @@
-import { useRouter } from "next/navigation";
+'use client'
+import { useRouter } from "nextjs-toploader/app";
 
 export default function SubjectCard({
 	subjectName,

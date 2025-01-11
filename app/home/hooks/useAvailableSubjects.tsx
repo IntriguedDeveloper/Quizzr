@@ -4,6 +4,7 @@ import { db } from "@/firebase/clientApp";
 import { collection, getDocs } from "firebase/firestore";
 import useSWR from "swr";
 import { useClassCode } from "./useClassCode";
+import useAttemptedQuizzes from "./useAttemptedQuizzes";
 
 type SubjectListType = {
 	subjectName: string;
@@ -23,22 +24,41 @@ export function useAvailableSubjects() {
 
 		const subjects = await Promise.all(
 			docSnap.docs.map(async (doc) => {
-				const subjectName = doc.data().subjectName;
-				const quizSnap = await getDocs(
-					collection(
-						db,
-						"classrooms",
-						classCode,
-						"subjects",
-						doc.id,
-						"quizzes"
-					)
-				);
-
-				return {
-					subjectName,
-					availableQuizzes: quizSnap.size,
-				};
+				const subjectName = await doc.data().subjectName;
+				if (userDetails.userID) {
+					const quizSnap = await getDocs(
+						collection(
+							db,
+							"classrooms",
+							classCode,
+							"subjects",
+							doc.id,
+							"quizzes"
+						)
+					);
+					const attemptDocSnapshot = await getDocs(
+						collection(
+							db,
+							"classrooms",
+							classCode,
+							"students",
+							userDetails.userID,
+							"attempted-quizzes"
+						)
+					);
+					if (!attemptDocSnapshot.empty && !quizSnap.empty) {
+						return {
+							subjectName,
+							availableQuizzes:
+								quizSnap.docs.length -
+								attemptDocSnapshot.docs.length,
+						};
+					}
+					return {
+						subjectName,
+						availableQuizzes: quizSnap.docs.length,
+					};
+				}
 			})
 		);
 

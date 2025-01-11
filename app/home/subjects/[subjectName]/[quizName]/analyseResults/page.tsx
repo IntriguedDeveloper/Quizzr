@@ -181,7 +181,7 @@ export default function AnalyseResults() {
 				<button
 					className="bg-blue-600 text-white font-semibold rounded-lg p-4 mt-4 mb-4 w-full"
 					onClick={() => {
-						router.back();
+						router.push("/home/availableQuizzes");
 					}}
 				>
 					Attempt Another Quiz

@@ -23,11 +23,12 @@ export function useJoinedClassroomDetails() {
 		}
 		return null;
 	}
-	const { data, error } = useSWR(classCode, () =>
+	const { data, error, isLoading } = useSWR(classCode, () =>
 		getJoinedClassroomDetails(classCode)
 	);
 	return {
 		joinedClassroomDetails: data,
 		error: error,
+		isLoading: isLoading,
 	};
 }

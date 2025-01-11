@@ -124,6 +124,7 @@ export default function QuizAttempt({
 					{
 						selectedQuizQuestions: selectedQuizQuestions,
 						timeTaken: quizCountDown,
+						title: quizDetails.title,
 					}
 				);
 				const quizResults = await calculateResults(

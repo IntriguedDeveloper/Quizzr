@@ -17,9 +17,7 @@ export default function AvailableQuizzes() {
 							<SubjectCard
 								key={subjectObject.subjectName}
 								subjectName={subjectObject.subjectName}
-								availableQuizzes={
-									subjectObject.availableQuizzes
-								}
+								availableQuizzes={subjectObject.availableQuizzes}
 							/>
 						))}
 				</div>

@@ -92,12 +92,8 @@ export default function SubjectDetails() {
 
 	if (isLoading || (!quizzes && !error)) {
 		return (
-			<div className="min-h-screen bg-gray-50 p-6">
-				<div className="flex justify-center items-center">
-					<div className="animate-pulse text-gray-600">
-						Loading quizzes...
-					</div>
-				</div>
+			<div className="animate-pulse text-gray-600">
+				Loading quizzes...
 			</div>
 		);
 	}

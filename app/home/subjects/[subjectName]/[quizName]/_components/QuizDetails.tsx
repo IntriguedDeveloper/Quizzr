@@ -38,10 +38,10 @@ export default function QuizDetails({
 	const timeDurationString = TimeObjectSlicer(parsedTimeObject);
 
 	return (
-		<div className="flex flex-col justify-normal h-full w-full bg-white lg:rounded-lg lg:p-4 p-2 relative">
-			<h1 className="text-center text-3xl font-semibold text-blue-600 mb-4">
+		<div className="flex flex-col justify-normal h-full w-full bg-white lg:rounded-lg lg:p-4 p-2 relative ">
+			<div className="text-center lg:text-3xl text-xl font-semibold text-blue-600 mb-4">
 				{quizDetails.title}
-			</h1>
+			</div>
 			<div className="border border-blue-400 rounded-md pr-4 pl-4 pt-2 pb-2 relative">
 				<div className="absolute top-2 left-2 text-md font-bold text-gray-500">
 					{randIndex + 1}/{quizQuestions.length}
@@ -54,14 +54,14 @@ export default function QuizDetails({
 					<h1 className="font-bold  text-xl lg:text-2xl mb-5">
 						Question Preview
 					</h1>
-					<div className="w-full bg-gray-200 rounded-lg p-5 text-lg flex justify-center">
+					<div className="w-full bg-gray-200 rounded-lg p-5 text-md lg:text-lg max-h-[200px] overflow-y-auto">
 						{quizQuestions[randIndex].QuestionTitle}
 					</div>
 					<div className="flex flex-col justify-around items-center bg-slate-300 mt-2 rounded-lg p-2 w-full h-max">
 						{quizQuestions[randIndex].AnswerChoices.map(
 							(option, index) => (
 								<div
-									className="bg-white rounded-md w-full p-2 text-lg m-1"
+									className="bg-white rounded-md w-full p-2 text-md lg:text-lg m-1"
 									key={index}
 								>
 									{option.choiceContent}

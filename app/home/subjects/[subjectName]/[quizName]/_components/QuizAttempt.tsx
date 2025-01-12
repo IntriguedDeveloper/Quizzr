@@ -174,7 +174,7 @@ export default function QuizAttempt({
 				</div>
 			) : (
 				<div className="flex flex-col justify-normal h-full w-full bg-white lg:rounded-lg lg:p-4 p-2 relative">
-					<h1 className="text-center text-3xl font-semibold text-blue-600 mb-4">
+					<h1 className="text-center lg:text-3xl text-xl font-semibold text-blue-600 mb-4">
 						{quizDetails.title}
 					</h1>
 
@@ -202,7 +202,7 @@ export default function QuizAttempt({
 							<h1 className="font-bold text-2xl mb-5">
 								Question {currentIndex + 1}
 							</h1>
-							<div className="w-full bg-gray-200 rounded-lg p-5 text-lg flex justify-center ">
+							<div className="w-full bg-gray-200 rounded-lg p-5 text-md lg:text-lg flex justify-center overflow-y-auto ">
 								{quizQuestions[currentIndex].QuestionTitle}
 							</div>
 							<div className="flex flex-col justify-around items-center bg-slate-300 mt-2 rounded-lg p-2 w-full h-max">
@@ -210,7 +210,7 @@ export default function QuizAttempt({
 									(option: AnswerChoice, index: number) => (
 										<div
 											key={index}
-											className="bg-white rounded-md w-full p-2 text-lg m-1 flex flex-row items-center justify-start cursor-pointer"
+											className="bg-white rounded-md w-full p-2 text-md lg:text-lg m-1 flex flex-row items-center justify-start cursor-pointer"
 											onClick={() =>
 												handleOptionSelect(index)
 											}

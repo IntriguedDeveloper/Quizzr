@@ -2,7 +2,13 @@
 
 import { useRouter } from "nextjs-toploader/app";
 import { useUserContext } from "../context/UserContext";
-import { FaBook, FaClock, FaExternalLinkAlt, FaTimesCircle, FaUser } from "react-icons/fa";
+import {
+	FaBook,
+	FaClock,
+	FaExternalLinkAlt,
+	FaTimesCircle,
+	FaUser,
+} from "react-icons/fa";
 import { useJoinedClassroomDetails } from "./hooks/useJoinedClassroomDetails";
 import InComponentLoadingSpinner from "./_components/InComponentLoadingSpinner";
 
@@ -19,14 +25,14 @@ const Home = () => {
 			</div>
 		);
 	}
-	if (isLoading || (!joinedClassroomDetails && !error)) {
+	if (isLoading) {
 		return <InComponentLoadingSpinner></InComponentLoadingSpinner>;
 	}
 	return (
 		<>
 			<div className="flex flex-col items-center p-4 space-y-10 w-full">
 				{/* Class Details Section */}
-				{joinedClassroomDetails && joinedClassroomDetails.classCode ? (
+				{joinedClassroomDetails && joinedClassroomDetails.classCode !== "" ? (
 					<>
 						<div className="lg:w-[60%] w-full p-4 border rounded-lg shadow-md bg-white flex justify-center flex-col items-center">
 							<h2 className="text-lg font-semibold mb-4">

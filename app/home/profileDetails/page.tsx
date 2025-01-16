@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { useUserContext } from "@/app/context/UserContext";
+import { auth } from "@/firebase/clientApp";
+import { useRouter } from "next/navigation";
 export default function ProfileDetails() {
+	const router = useRouter();
 	const userData = useUserContext();
 	const [profileDetails, setProfileDetails] = useState({
 		name: userData.userName || "",
@@ -64,11 +67,17 @@ export default function ProfileDetails() {
 			<div className="flex justify-between mt-4">
 				<button
 					onClick={handleProfileEdit}
-					className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+					className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 font-bold"
 				>
 					{isEditingProfile ? "Save" : "Edit"}
 				</button>
-				<button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+				<button
+					className="px-4 py-2 text-white bg-red-600 rounded font-bold"
+					onClick={() => {
+						signOut(auth);
+						router.push("/auth");
+					}}
+				>
 					Logout
 				</button>
 			</div>

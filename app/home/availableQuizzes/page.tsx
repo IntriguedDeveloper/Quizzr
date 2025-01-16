@@ -1,4 +1,5 @@
 "use client";
+import InComponentLoadingSpinner from "../_components/InComponentLoadingSpinner";
 import SubjectCard from "../_components/SubjectCard";
 import { useAvailableSubjects } from "../hooks/useAvailableSubjects";
 
@@ -11,13 +12,17 @@ export default function AvailableQuizzes() {
 					Available Subjects
 				</h2>
 				<div className="flex flex-col flex-auto">
-					{isLoading && <div>Loading....</div>}
+					{isLoading && (
+						<InComponentLoadingSpinner></InComponentLoadingSpinner>
+					)}
 					{subjects &&
 						subjects.map((subjectObject) => (
 							<SubjectCard
 								key={subjectObject.subjectName}
 								subjectName={subjectObject.subjectName}
-								availableQuizzes={subjectObject.availableQuizzes}
+								availableQuizzes={
+									subjectObject.availableQuizzes
+								}
 							/>
 						))}
 				</div>

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import {
@@ -26,12 +27,14 @@ export default function QuizAttempt({
 	quizDetails,
 	quizQuestions,
 	classCode,
-	previewToggler,
+
+	subjectName,
 }: {
 	quizDetails: QuizDetailsType;
 	quizQuestions: QuestionConstructType[];
 	classCode: string;
-	previewToggler: () => void;
+
+	subjectName: string;
 }) {
 	const parsedTimeObject = TimeStringParser(quizDetails.timeDuration);
 	const timeDurationString = TimeObjectSlicer(parsedTimeObject);
@@ -123,8 +126,9 @@ export default function QuizAttempt({
 					),
 					{
 						selectedQuizQuestions: selectedQuizQuestions,
-						timeTaken: quizCountDown,
+						timeAlloted: quizDetails.timeDuration,
 						title: quizDetails.title,
+						subjectName: subjectName,
 					}
 				);
 				const quizResults = await calculateResults(
@@ -133,14 +137,18 @@ export default function QuizAttempt({
 					quizDetails.fullMarks,
 					TimeStringParser(quizDetails.timeDuration)
 				);
-				await addDoc(
-					collection(
+				await setDoc(
+					doc(
 						db,
-						`classrooms/${classCode}/students/${userDetails.userID}/attempted-quizzes/${quizDetails.title}/quiz-result`
+						`classrooms/${classCode}/students/${
+							userDetails.userID
+						}/attempted-quizzes/${
+							quizDetails.title
+						}/quiz-result/${quizDetails.title}`
 					),
 					quizResults
 				);
-				router.push(`./${quizDetails.title}/analyseResults`);
+				router.push(`./analyseResults`);
 			}
 		} catch (error) {
 			console.error(error);

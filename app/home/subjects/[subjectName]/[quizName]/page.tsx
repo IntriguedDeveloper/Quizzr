@@ -13,7 +13,6 @@ export type QuizDetailsType = {
 };
 
 export default function QuizComponent() {
-	const [quizAttemptMode, setQuizAttemptMode] = useState<boolean>(false);
 	const userDetails = useUserContext();
 	let params = useParams<{ subjectName: string; quizName: string }>();
 	params.quizName = decodeURIComponent(params.quizName); //quizName has a whitespace in it, so decode it
@@ -23,32 +22,16 @@ export default function QuizComponent() {
 		params.subjectName,
 		userDetails.userID
 	);
-	function previewToggler() {
-		setQuizAttemptMode(!quizAttemptMode);
-	}
+
 	return (
 		<>
-			{quizAttemptMode
-				? data?.quizDetails &&
-				  data.quizQuestions &&
-				  data.classCode && (
-						<QuizAttempt
-							quizDetails={data?.quizDetails}
-							quizQuestions={data?.quizQuestions}
-							classCode={data.classCode}
-							previewToggler={previewToggler}
-						></QuizAttempt>
-				  )
-				: data?.quizDetails &&
-				  data.quizQuestions &&
-				  data.classCode && (
-						<QuizDetails
-							quizDetails={data?.quizDetails}
-							quizQuestions={data?.quizQuestions}
-							classCode={data.classCode}
-							previewToggler={previewToggler}
-						></QuizDetails>
-				  )}
+			{data?.quizDetails && data.quizQuestions && data.classCode && (
+				<QuizDetails
+					quizDetails={data?.quizDetails}
+					quizQuestions={data?.quizQuestions}
+					classCode={data.classCode}
+				></QuizDetails>
+			)}
 		</>
 	);
 }

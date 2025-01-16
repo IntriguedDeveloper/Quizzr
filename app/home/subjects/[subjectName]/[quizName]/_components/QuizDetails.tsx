@@ -10,12 +10,10 @@ export default function QuizDetails({
 	quizDetails,
 	quizQuestions,
 	classCode,
-	previewToggler,
 }: {
 	quizDetails: QuizDetailsType;
 	quizQuestions: QuestionConstructType[];
 	classCode: string;
-	previewToggler: () => void;
 }) {
 	const router = useRouter();
 	type dataType = {
@@ -95,7 +93,7 @@ export default function QuizDetails({
 				<button
 					className="px-4 py-2 border-red-600 border-2 text-red-600 rounded-md font-bold hover:text-white hover:bg-red-600"
 					onClick={() => {
-						previewToggler();
+						router.push('./analyseResults')
 					}}
 				>
 					Attempt Quiz 🚀

@@ -2,8 +2,9 @@
 
 import { useRouter } from "nextjs-toploader/app";
 import { useUserContext } from "../context/UserContext";
-import { FaBook, FaExternalLinkAlt, FaUser } from "react-icons/fa";
+import { FaBook, FaClock, FaExternalLinkAlt, FaTimesCircle, FaUser } from "react-icons/fa";
 import { useJoinedClassroomDetails } from "./hooks/useJoinedClassroomDetails";
+import InComponentLoadingSpinner from "./_components/InComponentLoadingSpinner";
 
 const Home = () => {
 	const router = useRouter();
@@ -19,7 +20,7 @@ const Home = () => {
 		);
 	}
 	if (isLoading || (!joinedClassroomDetails && !error)) {
-		return <div>Loading...</div>;
+		return <InComponentLoadingSpinner></InComponentLoadingSpinner>;
 	}
 	return (
 		<>
@@ -66,6 +67,15 @@ const Home = () => {
 							>
 								View Profile Details
 								<FaUser className="m-2" />
+							</div>
+							<div
+								className="w-full flex flex-row bg-gray-200 p-4 rounded-lg justify-center items-center lg:text-lg font-semibold shadow-[0_8px_40px_rgb(0,0,0,0.12)] hover:shadow-blue-200 shadow-blue-300 cursor-pointer h-18"
+								onClick={() =>
+									router.push("./home/attemptedQuizzes")
+								}
+							>
+								View Attempted Quiz Results
+								<FaClock className="m-2" />
 							</div>
 						</div>
 					</>

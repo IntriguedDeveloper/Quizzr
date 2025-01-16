@@ -8,6 +8,7 @@ import useSWR from "swr";
 import useAttemptedQuizzes, {
 	AttemptedQuizzesType,
 } from "../../hooks/useAttemptedQuizzes";
+import InComponentLoadingSpinner from "../../_components/InComponentLoadingSpinner";
 
 type QuizObject = {
 	title: string;
@@ -92,9 +93,7 @@ export default function SubjectDetails() {
 
 	if (isLoading || (!quizzes && !error)) {
 		return (
-			<div className="animate-pulse text-gray-600">
-				Loading quizzes...
-			</div>
+			<InComponentLoadingSpinner></InComponentLoadingSpinner>
 		);
 	}
 

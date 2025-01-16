@@ -5,9 +5,7 @@ import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { useParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
 import useSWR from "swr";
-import useAttemptedQuizzes, {
-	AttemptedQuizzesType,
-} from "../../hooks/useAttemptedQuizzes";
+
 import InComponentLoadingSpinner from "../../_components/InComponentLoadingSpinner";
 
 type QuizObject = {
@@ -53,9 +51,7 @@ const fetchQuizData = async (userID: string, subjectName: string) => {
 		);
 
 		if (!docSnapshot.empty) {
-			const attemptedQuizzes = docSnapshot.docs.map(
-				(doc) => doc.data() as AttemptedQuizzesType
-			);
+			const attemptedQuizzes = docSnapshot.docs.map((doc) => doc.data());
 			const attemptedQuizTitles = attemptedQuizzes.map(
 				(quiz) => quiz.title
 			);
@@ -92,9 +88,7 @@ export default function SubjectDetails() {
 	);
 
 	if (isLoading || (!quizzes && !error)) {
-		return (
-			<InComponentLoadingSpinner></InComponentLoadingSpinner>
-		);
+		return <InComponentLoadingSpinner></InComponentLoadingSpinner>;
 	}
 
 	if (error) {

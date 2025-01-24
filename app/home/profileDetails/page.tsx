@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { useUserContext } from "@/app/context/UserContext";
-import { auth } from "@/firebase/clientApp";
+import { auth, db } from "@/firebase/clientApp";
 import { useRouter } from "next/navigation";
+import { deleteDoc, doc } from "firebase/firestore";
 export default function ProfileDetails() {
 	const router = useRouter();
 	const userData = useUserContext();
@@ -37,6 +38,11 @@ export default function ProfileDetails() {
 		setProfileDetails({ ...profileDetails, [name]: value });
 	};
 
+	const deleteUser = async () => {
+		await deleteDoc(doc(db, `students/${userData.userID}`));	
+		await signOut(auth);
+		router.push("/auth");
+	};
 	return (
 		<div className="lg:w-[60%] w-full p-4 border rounded-lg shadow-md bg-white mt-2">
 			<h2 className="text-lg font-semibold mb-4">Profile Details</h2>
@@ -73,10 +79,7 @@ export default function ProfileDetails() {
 				</button>
 				<button
 					className="px-4 py-2 text-white bg-red-600 rounded font-bold"
-					onClick={() => {
-						signOut(auth);
-						router.push("/auth");
-					}}
+					onClick={deleteUser}
 				>
 					Logout
 				</button>

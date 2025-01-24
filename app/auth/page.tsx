@@ -85,7 +85,7 @@ export default function Auth() {
 			await createStudentDoc(response.user.uid, userName, email);
 			setAuthMsg("Account Created");
 			setIsLoggedIn(true);
-		} catch (error) {
+		} catch (error: any) {
 			setIsLoading(false);
 			switch (error.code) {
 				case "auth/email-already-in-use":

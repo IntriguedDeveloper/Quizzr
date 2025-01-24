@@ -6,11 +6,12 @@ export function useClassCode(userID: string | null) {
 	const fetcher = async (userID: string) => {
 		const docSnap = await getDoc(doc(db, "students", userID));
 		if (docSnap.exists()) {
-			const classCode = docSnap.data().joinedClassroom;
+			const classCode = await docSnap.data().joinedClassroom;
 			return classCode;
 		}
+
 		return null;
 	};
-	const { data, error } = useSWR(userID, fetcher);
-    return {data, error};
+	const { data, error, isLoading } = useSWR(userID, fetcher);
+	return { data, error, isClassCodeLoading: isLoading };
 }

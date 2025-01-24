@@ -44,16 +44,22 @@ export function UserContextProvider({
 				let email = user.email;
 				let userName = "";
 				let isAdmin: boolean = false;
-				const q = query(collection(db, "users"), where("email", "==", email));
+				const q = await query(
+					collection(db, "users"),
+					where("email", "==", email)
+				);
 				const querySnapShot = await getDocs(q);
 
-				await querySnapShot.forEach(async (doc) => {
-					userName = doc.data().userName;
-					isAdmin = doc.data().isAdmin;
-				});
+				await Promise.all(
+					querySnapShot.docs.map(async (doc) => {
+						userName = await doc.data().userName;
+						isAdmin = await doc.data().isAdmin;
+					})
+				);
+
 				setUser({
 					userEmail: email,
-					userName: userName || user.displayName,
+					userName: user.displayName,
 					userID: userID,
 					isAdmin: isAdmin,
 					isLoading: false,

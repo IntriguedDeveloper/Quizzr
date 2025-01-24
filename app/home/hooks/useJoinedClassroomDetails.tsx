@@ -1,34 +1,61 @@
+import { useState, useEffect } from "react";
 import { useUserContext } from "@/app/context/UserContext";
 import { useClassCode } from "./useClassCode";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/clientApp";
-import useSWR from "swr";
+
 type JoinedClassroomDetailsType = {
-	classCode: "";
-	className: "";
-	classCreator: "";
+	classCode: string;
+	className: string;
+	classCreator: string;
+	hasJoined: boolean;
 };
+
 export function useJoinedClassroomDetails() {
 	const userDetails = useUserContext();
-	const { data: classCode } = useClassCode(userDetails.userID);
-	async function getJoinedClassroomDetails(
-		classCode: string
-	): Promise<JoinedClassroomDetailsType | null> {
-		if (classCode && userDetails.userID) {
-			const docSnapshot = await getDoc(doc(db, "classrooms", classCode));
-			if (docSnapshot.exists()) {
-				const data = docSnapshot.data() as JoinedClassroomDetailsType;
-				return data;
-			}
-		}
-		return null;
-	}
-	const { data, error, isLoading } = useSWR(classCode, () =>
-		getJoinedClassroomDetails(classCode)
+	const { data: classCode, isClassCodeLoading } = useClassCode(
+		userDetails.userID
 	);
-	return {
-		joinedClassroomDetails: data,
-		error: error,
-		isLoading: isLoading,
-	};
+
+	const [joinedClassroomDetails, setJoinedClassroomDetails] =
+		useState<JoinedClassroomDetailsType | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [error, setError] = useState<Error | null>(null);
+
+	useEffect(() => {
+		const fetchJoinedClassroomDetails = async () => {
+			setIsLoading(true);
+			if (!classCode && typeof classCode !== "undefined") {
+				setJoinedClassroomDetails({
+					classCode: "",
+					className: "",
+					classCreator: "",
+					hasJoined: false,
+				});
+				setIsLoading(false);
+				return;
+			}
+
+			try {
+				const docSnapshot = await getDoc(
+					doc(db, "classrooms", classCode)
+				);
+				if (docSnapshot.exists()) {
+					const data = (await docSnapshot.data()) as Omit<
+						JoinedClassroomDetailsType,
+						"hasJoined"
+					>;
+					setJoinedClassroomDetails({ ...data, hasJoined: true });
+				}
+			} catch (err) {
+				setJoinedClassroomDetails(null);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchJoinedClassroomDetails();
+	}, [classCode]);
+
+	return { joinedClassroomDetails, isLoading, error };
 }

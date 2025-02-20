@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 4000",
     "devexpose": "next dev -H 192.168.1.8",
     "build": "next build",
     "start": "next start",
@@ -25,6 +25,7 @@
     "firebase": "^11.1.0",
     "firebase-admin": "^13.0.2",
     "framer-motion": "^11.15.0",
+    "groq-sdk": "^0.15.0",
     "jsonwebtoken": "^9.0.2",
     "mammoth": "^1.9.0",
     "next": "^15.1.3",

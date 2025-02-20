@@ -57,7 +57,7 @@ export const useClassDetails = (
           };
         });
 
-        if (teacherDetails.userName && teacherDetails.isAdmin) {
+        if (teacherDetails.userName) {
           const subjectDoc = await getDoc(
             doc(
               db,

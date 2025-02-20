@@ -2,10 +2,11 @@
 import { auth, db } from "@/firebase/clientApp";
 import {
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	signInWithEmailAndPassword,
 	updateProfile,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { useRouter } from "nextjs-toploader/app";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser } from "react-icons/fa";
@@ -19,6 +20,7 @@ export default function Auth() {
 	const [authMsg, setAuthMsg] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
+	const [isTeacher, setIsTeacher] = useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -48,14 +50,36 @@ export default function Auth() {
 
 	const handleLogin = async () => {
 		try {
-			const response = await signInWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
-			console.log(response);
-			setAuthMsg("Logged In");
-			setIsLoggedIn(true);
+			if (
+				(await userCredentials.user.getIdTokenResult()).claims.admin ===
+				true
+			) {
+				const userCredential = await signInWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+				const token = await userCredential.user.getIdToken();
+				const response = await fetch("/api/auth/session", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ token }),
+				});
+				if (!response.ok) {
+					throw new Error("Failed to create session");
+				}
+				router.push("/admin/home");
+			} else {
+				const userCredentials = await signInWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+				setAuthMsg("Logged In");
+				setIsLoggedIn(true);
+			}
 		} catch (error: any) {
 			setIsLoading(false);
 			switch (error.code) {
@@ -76,15 +100,62 @@ export default function Auth() {
 
 	const handleSignUp = async () => {
 		try {
-			const response = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
-			await updateProfile(response.user, { displayName: userName });
-			await createStudentDoc(response.user.uid, userName, email);
-			setAuthMsg("Account Created");
-			setIsLoggedIn(true);
+			if (isTeacher) {
+				try {
+					await handleTeacherRequestSubmission(
+						email,
+						password,
+						userName
+					);
+					setAuthMsg(
+						"Teacher permissions requested. Please wait for fulfillment."
+					);
+					await onSnapshot(
+						doc(db, "teacher-requests", userName),
+						async (doc) => {
+							console.log(doc.data());
+							if (doc.data()?.approved === true) {
+								const userCredential =
+									await signInWithEmailAndPassword(
+										auth,
+										email,
+										password
+									);
+								const token =
+									await userCredential.user.getIdToken();
+								const response = await fetch(
+									"/api/auth/session",
+									{
+										method: "POST",
+										headers: {
+											"Content-Type": "application/json",
+										},
+										body: JSON.stringify({ token }),
+									}
+								);
+
+								if (!response.ok) {
+									throw new Error("Failed to create session");
+								}
+
+								router.push("/admin/home");
+							}
+						}
+					);
+				} catch (error: any) {
+					setAuthMsg(error);
+				}
+			} else {
+				const response = await createUserWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+				await updateProfile(response.user, { displayName: userName });
+				await createStudentDoc(response.user.uid, userName, email);
+				setAuthMsg("Account Created");
+				setIsLoggedIn(true);
+			}
 		} catch (error: any) {
 			setIsLoading(false);
 			switch (error.code) {
@@ -171,7 +242,21 @@ export default function Auth() {
 									)}
 								</button>
 							</div>
-
+							{!isLogin && (
+								<div className="relative flex flex-row space-x-2 items-center justify-center text-lg">
+									<input
+										className=""
+										type="checkbox"
+										name="permissionCheckBox"
+										onChange={() =>
+											setIsTeacher(!isTeacher)
+										}
+									></input>
+									<label htmlFor="permissionCheckBox">
+										I am a teacher
+									</label>
+								</div>
+							)}
 							<div>
 								<button
 									type="submit"
@@ -206,6 +291,8 @@ export default function Auth() {
 										<span>
 											{isLogin
 												? "Sign In"
+												: isTeacher
+												? "Request Permission"
 												: "Create Account"}
 										</span>
 									)}
@@ -254,4 +341,22 @@ async function createStudentDoc(
 		email: email,
 		joinedClassroom: null,
 	});
+}
+
+async function handleTeacherRequestSubmission(
+	email: string,
+	password: string,
+	userName: string
+) {
+	const exportObject = {
+		email: email,
+		password: password,
+		userName: userName,
+	};
+	if (userName) {
+		const response = await setDoc(
+			doc(db, "teacher-requests", userName),
+			exportObject
+		);
+	}
 }

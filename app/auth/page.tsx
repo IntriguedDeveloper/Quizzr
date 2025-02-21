@@ -50,16 +50,16 @@ export default function Auth() {
 
 	const handleLogin = async () => {
 		try {
+			const userCredentials = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
 			if (
 				(await userCredentials.user.getIdTokenResult()).claims.admin ===
 				true
 			) {
-				const userCredential = await signInWithEmailAndPassword(
-					auth,
-					email,
-					password
-				);
-				const token = await userCredential.user.getIdToken();
+				const token = await userCredentials.user.getIdToken();
 				const response = await fetch("/api/auth/session", {
 					method: "POST",
 					headers: {
@@ -72,11 +72,6 @@ export default function Auth() {
 				}
 				router.push("/admin/home");
 			} else {
-				const userCredentials = await signInWithEmailAndPassword(
-					auth,
-					email,
-					password
-				);
 				setAuthMsg("Logged In");
 				setIsLoggedIn(true);
 			}

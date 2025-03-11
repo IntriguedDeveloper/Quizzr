@@ -14,7 +14,7 @@ if (!admin.apps.length) {
 export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get('authorization')?.split('Bearer ')[1];
-
+    console.log(request)
     if (!token) {
       return NextResponse.json(
         { error: 'No token provided' },
